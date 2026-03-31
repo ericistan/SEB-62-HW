@@ -1,0 +1,97 @@
+  239  cd onedrive/desktop
+  240  pwd
+  241  mkdir star-wars
+  242  cd star-wars/
+  243  ls
+  244  mkdir death-star
+  245  cd death-star/
+  246  touch darth-vader.txt princess-leia.txt storm-trooper.txt
+  247  ls
+  248  cd ..
+  249  mkdir galaxy-far-far-away
+  250  cd galaxy-far-far-away/
+  251  mkdir tatooine
+  252  cd tatooine/
+  253  touch luke.txt ben-kenobi.txt
+  254  mkdir millenium-falcon
+  255  ls
+  256  cd millenium-falcon/
+  257  touch han-solo.txt chewbacca.txt
+  258  cd ../../../death-star/
+  259  cp storm-trooper.txt ../galaxy-far-far-away/tatooine/
+  260  cd ../galaxy-far-far-away/tatooine/
+  261  ls
+  262  mv ben-kenobi.txt millenium-falcon/
+  263  mv luke.txt millenium-falcon/
+  264  ls
+  265  cd millenium-falcon/
+  266  ls
+  267  cd ..
+  268  ls
+  269  mv millenium-falcon/ ../../death-star/
+  270  ls
+  271  cd ..
+  272  cd ../death-star/
+  273  ls
+  274  cd millenium-falcon/
+  275  ls
+  276  cd ..
+  277  ls
+  278  mv princess-leia.txt millenium-falcon/
+  279  cd millenium-falcon/
+  280  ls
+  281  mv ben-kenobi.txt obi-wan.txt
+  282  ls
+  283  rm obi-wan.txt
+  284  ls
+  285  mkdir ../../galaxy-far-far-away/yavin-4
+  286  cd ../../galaxy-far-far-away/
+  287  ls
+  288  mv ../death-star/millenium-falcon/ yavin-4/
+  289  cd yavin-4/
+  290  mkdir x-wing
+  291  ls
+  292  cd millenium-falcon/
+  293  ls
+  294  mv princess-leia.txt ..
+  295  mv luke.txt ../x-wing/
+  296  cd ..
+  297  ls
+  298  mv millenium-falcon/ ..
+  299  mv x-wing/ ..
+  300  ls
+  301  cd ..
+  302  ls
+  303  mkdir ../death-star/tie-fighter-1
+  304  mkdir ../death-star/tie-fighter-2
+  305  mkdir ../death-star/tie-fighter-3
+  306  mv ../death-star/darth-vader.txt ../death-star/tie-fighter-1
+  307  cp ../death-star/storm-trooper.txt ../death-star/tie-fighter-2
+  308  cp ../death-star/storm-trooper.txt ../death-star/tie-fighter-3
+  309  mv ../death-star/tie-fighter-1/
+  310  mv ../death-star/tie-fighter-1 .
+  311  mv ../death-star/tie-fighter-2 .
+  312  mv ../death-star/tie-fighter-3 .
+  313  ls
+  314  rm -rf tie-fighter-2
+  315  rm -rf tie-fighter-3
+  316  ls
+  317  touch /x-wing/the-force.txt
+  318  cd x-wing/
+  319  touch the-force.txt
+  320  ls
+  321  rm -rf ../../death-star/
+  322  mv ../x-wing/ ../yavin-4/
+  323  mv ../millenium-falcon/ ../yavin-4/
+  324  cd ..
+  325  ls
+  326  mv millenium-falcon/ yavin-4/
+  327  ls
+  328  cd yavin-4/
+  329  ls
+  330  cd ../../
+  331  cd ..
+  332  ls
+  333  rm -rf star-wars/
+  334  ls
+  335  history
