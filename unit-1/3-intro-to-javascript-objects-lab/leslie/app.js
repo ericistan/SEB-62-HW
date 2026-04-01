@@ -328,3 +328,19 @@ for (const monster of pokemon) {
     console.log(monster.name, "is a starter Pokémon");
   }
 }
+
+/*
+Exercise 10
+1. Similar to Exercise 6, now complete gyms with a difficulty below 6. How will you approach this?
+ (change the value of `complete` in the qualifying objects from false to true).
+
+Solve Exercise 10 here:
+*/
+
+let difficultyToCheck = 6;
+for (const gym of game.gyms) {
+  if (gym.difficulty < difficultyToCheck && gym.completed === false) {
+    gym.completed = true;
+  }
+}
+console.log(game.gyms);
