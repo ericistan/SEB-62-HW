@@ -294,4 +294,12 @@ for (const lateGame of game.gyms) {
     lateGame.completed = true;
   }
 }
+
+/*
+Exercise 12
+1. Log the entire `game` object to the console. Take a moment to review the changes you've made throughout the exercises.
+
+
+Solve Exercise 12 here:
+*/
 console.log(game);
