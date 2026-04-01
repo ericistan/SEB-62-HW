@@ -307,6 +307,25 @@ const numArrays = [
 let total = 0; // Intializing
 
 // Idea is 1st for loop to extract out arrays from numArrays, 2nd for loop extract number out of newArray
+
+// Desmond's comments
+// Good job but you can use numArrays[i] directly
+// for (let i = 0; i < numArrays.length; i++) {
+//   for (let j = 0; j < numArrays[i].length; j++) {
+//     total += numArrays[i][j];
+//   }
+// }
+
+// or to make life really easy
+
+// let total = 0;
+
+// for (const arr of numArrays) {
+//   for (const num of arr) {
+//     total += num;
+//   }
+// }
+
 for (let i = 0; i < numArrays.length; i++) {
   let newArray = numArrays[i];
   for (let h = 0; h < newArray.length; h++) {

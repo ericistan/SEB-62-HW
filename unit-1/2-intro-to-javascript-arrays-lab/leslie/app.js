@@ -189,6 +189,13 @@ const fizz = [];
 const buzz = [];
 const fizzbuzz = [];
 
+// Desmond's comments
+// usually for if() statements, we don't put the
+// condition on another line, this makes it a bit
+// more work for a person to know what your if
+// does. So just doing
+// if (num % 3 === 0) is actually better
+
 for (const num of nums) {
   let isFizz = num % 3 === 0;
   let isBuzz = num % 5 === 0;
