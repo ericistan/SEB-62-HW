@@ -115,3 +115,20 @@ Complete the exercise in the space below:
 const maxOfThree = (num1, num2, num3) => Math.max(num1, num2, num3);
 
 console.log("Exercise 6 Result:", maxOfThree(5, 10, 8));
+
+/*
+Exercise 7: calculateTip()
+
+Create a function called calculateTip. It should take two arguments: 
+the bill amount and the tip percentage (as a whole number). 
+The function should return the amount of the tip.
+
+Example: calculateTip(50, 20) should return 10.
+
+Complete the exercise in the space below:
+*/
+
+const calculateTip = (bill, tipPercent) =>
+  Math.round((bill * 100 * tipPercent) / 100) / 100;
+
+console.log("Exercise 7 Result:", calculateTip(50, 20));
