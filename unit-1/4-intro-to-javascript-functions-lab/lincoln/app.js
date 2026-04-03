@@ -225,30 +225,36 @@
 // };
 
 // console.log("Exercise 10 Result:", calculateGrade(85));
+// Expected result is to be B
 
-// /*
-// Exercise 11: createUsername()
+// // /*
+// // Exercise 11: createUsername()
 
-// Define a function called createUsername.
-// It should take a first name and a last name and return a username.
+// // Define a function called createUsername.
+// // It should take a first name and a last name and return a username.
 
-// The username should be a combination of the following:
-// - The first three letters of the first name.
-// - The first three letters of the last name.
-// - The total character count of the first and last name combined.
+// // The username should be a combination of the following:
+// // - The first three letters of the first name.
+// // - The first three letters of the last name.
+// // - The total character count of the first and last name combined.
 
-// Example: createUsername('Samantha', 'Green') should return 'SamGre13'.
+// // Example: createUsername('Samantha', 'Green') should return 'SamGre13'.
 
-// Complete the exercise in the space below:
-// */
+// // Complete the exercise in the space below:
+// // */
 
-// createUsername (firstName, lastName) {
-//     const fnArr = [firstName].split("");
-//     fnArr.split("");
-
+// // const fnArr and ltArr created to 1. split("") to convert string into array of letters
+// // 2. slice(0, 3) select the first 3 elements o
+// function createUsername(firstName, lastName) {
+//   const fnArr = firstName.split("").slice(0, 3).join("");
+//   const ltArr = lastName.split("").slice(0, 3).join("");
+//   const nameCount = firstName.length + lastName.length;
+//   //   return fnArr;
+//   return `${fnArr}${ltArr}${nameCount}`;
 // }
 
-// console.log('Exercise 11 Result:', createUsername("Samantha", "Green"));
+// console.log("Exercise 11 Result:", createUsername("Samantha", "Green"));
+// // Expected result to be SamGre13
 
 // /*
 // Exercise 12: numArgs()
@@ -259,4 +265,11 @@
 // Complete the exercise in the space below:
 // */
 
-// console.log('Exercise 12 Result:', numArgs(1, 2, 3, 4));
+// if the number of arguments passed into the function is not fixed, use ...others
+const numArgs = (first, ...others) => {
+  const arr = [first, ...others];
+  // use array to contain all argument before return the length of it
+  return arr.length;
+};
+
+console.log("Exercise 12 Result:", numArgs(1, 2, 3, 4));
