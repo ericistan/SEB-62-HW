@@ -13,7 +13,7 @@ calculator.addEventListener("click", (event) => {
   const btnValue = event.target.innerText;
   const btnClass = event.target.classList;
 
-  // Handle numbers
+  // Handle numbers//
   if (btnClass.contains("number")) {
     if (operator === "") {
       num1 += btnValue;
@@ -24,7 +24,7 @@ calculator.addEventListener("click", (event) => {
     }
   }
 
-  // Handle operators
+  // Handle operators//
   if (btnClass.contains("operator")) {
     if (btnValue === "C") {
       clearCalculator();
@@ -34,7 +34,7 @@ calculator.addEventListener("click", (event) => {
     displayScreen.innerText = "";
   }
 
-  // Handle equals
+  // Handle equals//
   if (btnClass.contains("equals")) {
     if (num1 && num2 && operator) {
       result = calculate();
