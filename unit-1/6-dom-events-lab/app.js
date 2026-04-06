@@ -1,35 +1,55 @@
+// As a user, I want to be able to select numbers so that I can perform operations with them.
+// As a user, I want to be able to add two numbers together.
+// As a user, I want to be able to subtract one number from another.
+// As a user, I want to be able to multiply two numbers together.
+// As a user, I want to be able to divide one number by another.
+// As a user, I want to be able to see the output of the mathematical operation.
+// As a user, I want to be able to clear all operations and start from 0.
+
 /*-------------------------------- Constants --------------------------------*/
-// 1. As a user, I want to be able to select numbers so that I can perform operations with them.
 const buttons = document.querySelectorAll(".button");
-const addButton = document.querySelector("#add");
-const subtractButton = document.querySelector("#subtract");
-const multiplyButton = document.querySelector("#multiply");
-const divideButton = document.querySelector("#divide");
-const clearButton = document.querySelector("#clear");
+const display = document.querySelector(".display");
 /*-------------------------------- Variables --------------------------------*/
+let currentInput = "";
+let operator = "";
+let previousInput = "";
 
 /*------------------------ Cached Element References ------------------------*/
-
+//not sure what this means.
 /*----------------------------- Event Listeners -----------------------------*/
 buttons.forEach((button) => {
   button.addEventListener("click", (event) => {
-    // This log is for testing purposes to verify we're getting the correct value
-    console.log(event.target.innerText);
-    // Future logic to capture the button's value would go here...
+    const value = event.target.innerText;
+    if (event.target.classList.contains("number")) {
+      currentInput += value;
+      display.innerText = currentInput;
+    } else if (event.target.classList.contains("operator")) {
+      previousInput = currentInput;
+      operator = value;
+      currentInput = "";
+      display.innerText = operator;
+    } else if (event.target.classList.contains("equals")) {
+      const firstNum = Number(previousInput);
+      const secondNum = Number(currentInput);
+      let result = "";
+
+      if (operator === "+") {
+        result = firstNum + secondNum;
+      } else if (operator === "-") {
+        result = firstNum - secondNum;
+      } else if (operator === "*") {
+        result = firstNum * secondNum;
+      } else if (operator === "/") {
+        result = firstNum / secondNum;
+      }
+      display.innerText = result;
+      currentInput = String(result);
+    } else if (event.target.classList.contains("clear")) {
+      currentInput = "";
+      operator = "";
+      previousInput = "";
+      display.innerText = "0";
+    }
   });
 });
-
-// As a user, I want to be able to add two numbers together.
-addButton.addEventListener("click", (button1, button2) => {
-    
-})
-
-
 /*-------------------------------- Functions --------------------------------*/
-
-
-As a user, I want to be able to subtract one number from another.
-As a user, I want to be able to multiply two numbers together.
-As a user, I want to be able to divide one number by another.
-As a user, I want to be able to see the output of the mathematical operation.
-As a user, I want to be able to clear all operations and start from 0.
