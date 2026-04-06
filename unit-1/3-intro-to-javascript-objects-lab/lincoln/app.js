@@ -269,6 +269,8 @@ game.party.push(pokemon[numPika - 1]); // using push() would add the whole Pikac
 // After previous check, I would like to choose Grimer of number 88 (type poison HP 80),
 // Lapras of 131 (type water HP 130), Abra of number 63 (type psychic HP 25)
 
+// Desmond's comments
+// remember don't declare variables without let or const
 numGri = 88;
 numAbr = 63;
 numLap = 131;

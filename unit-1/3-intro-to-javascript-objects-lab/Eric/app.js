@@ -343,3 +343,12 @@ Solve Exercise 14 here:
 */
 
 console.log("I don't know how to do this one yet! :(");
+
+// Desmond's comments
+// hint: you can use this type of "formula"
+// this is pseudocode
+// if (key is found) {
+//    add pokimon to array
+// } else {
+//    create new key with array with this pokemon as 1st element
+// }

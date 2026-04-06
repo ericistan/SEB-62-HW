@@ -1,6 +1,3 @@
-//
-
-// note your keys here are party, gyms (sub-keys: location, completed, difficulty, items (name, quantity)
 const game = {
   party: [],
   gyms: [
@@ -18,9 +15,10 @@ const game = {
     { name: "pokeball", quantity: 8 },
     { name: "rare candy", quantity: 99 },
   ],
+  //Exercise 3
+  difficulty: [{ level: "Easy" }, { level: "Medium" }, { level: "Hard" }],
 };
 
-// note that your keys are number, name, type, hp, starter
 const pokemon = [
   { number: 1, name: "Bulbasaur", type: "grass", hp: 45, starter: true },
   { number: 2, name: "Ivysaur", type: "grass", hp: 60, starter: false },
@@ -174,141 +172,153 @@ const pokemon = [
   { number: 150, name: "Mewtwo", type: "psychic", hp: 106, starter: false },
   { number: 151, name: "Mew", type: "psychic", hp: 100, starter: false },
 ];
+//console.dir(pokemon, { maxArrayLength: null });
+
+//Exercise 1
+//console.log(pokemon[58]);
+
+//Exercise 2
+//console.log(game);
 
 /*
-Exercise 14
-Dynamically construct an object with the existing `pokemon` data sorted by the different pokemon types. The object will have this structure:
-
-{
-  grass: [
-    { number: 1, name: 'Bulbasaur', type: 'grass', hp: 45, starter: true },
-    { number: 2, name: 'Ivysaur', type: 'grass', hp: 60, starter: false },
-    { number: 3, name: 'Venusaur', type: 'grass', hp: 80, starter: false },
-    * more grass type Pokemon objects...
-  ],
-  fire: [
-    { number: 4, name: 'Charmander', type: 'fire', hp: 39, starter: true },
-    * more fire type Pokemon objects...
-  ],
-  water: [
-    * water type Pokemon objects...
-  ],
-  * etc... until there is an array for every Pokemon type!
-}
-
-Log the object when it's constructed.
-
-Solve Exercise 14 here:
+Exercise 3
+1. Add a new property to the `game` object. Let's call it "difficulty".
+2. Choose a value for "difficulty" that you think fits the game. 
+Ex: "Easy", "Med" or "Hard". How would you assign it?
+Solve Exercise 3 here:
+  difficulty: [{ level: "Easy" }, { level: "Medium" }, { level: "Hard" }],
+};
+console.log(game);
 */
-// To be honest I dont know what are the types inside the pokemon arrays.
 
-// let checkList = [];
-// for (i = 0; i < pokemon.length; i++) {
-//   //   console.log(pokemon[i].type); // checked if array.key can be printed
-//   if (checkList.includes(pokemon[i].type) === false) {
-//     //Initially the list is empty, using list.includes() === false means if dont have the type, please push() in
-//     //so that there is no duplication
-//     checkList.push(pokemon[i].type);
-//   }
-// }
+/*
+Exercise 4
+1. Select a starter Pokémon from the `pokemon` array. 
+Remember, a starter Pokémon's `starter` property is true.
+2. Add this Pokémon to the `game.party` array. 
+Which array method will you use to add them?
+Solve Exercise 4 here:
+*/
 
-// console.log(checkList);
-// Result shows [grass', 'fire', 'water', 'bug', 'normal', 'poison', 'electric', 'ground',
-// 'fairy', 'fighting', 'psychic', 'rock', 'ghost', 'ice', 'dragon
-// so next I will create empty array based on the these types
-
-//-------------------------------------
-const pokemonSortedByType = {};
-const pokeGra = [];
-const pokeFir = [];
-const pokeWat = [];
-const pokeEle = [];
-const pokeBug = [];
-const pokeNor = [];
-const pokePoi = [];
-const pokeGro = [];
-const pokeFai = [];
-const pokeFig = [];
-const pokePsy = [];
-const pokeRoc = [];
-const pokeGho = [];
-const pokeIce = [];
-const pokeDra = [];
-
-let count = 0;
-
-for (const poke of pokemon) {
-  if (poke.type === "grass") {
-    pokeGra.push(poke);
-    pokemonSortedByType.Grass = pokeGra;
-    count++;
-  } else if (poke.type === "fire") {
-    pokeFir.push(poke);
-    pokemonSortedByType.Fire = pokeFir;
-    count++;
-  } else if (poke.type === "water") {
-    pokeWat.push(poke);
-    pokemonSortedByType.Water = pokeWat;
-    count++;
-  } else if (poke.type === "electric") {
-    pokeEle.push(poke);
-    pokemonSortedByType.Electric = pokeEle;
-    count++;
-  } else if (poke.type === "bug") {
-    pokeBug.push(poke);
-    pokemonSortedByType.Bug = pokeBug;
-    count++;
-  } else if (poke.type === "normal") {
-    pokeNor.push(poke);
-    pokemonSortedByType.Normal = pokeNor;
-    count++;
-  } else if (poke.type === "poison") {
-    pokePoi.push(poke);
-    pokemonSortedByType.Poison = pokePoi;
-    count++;
-  } else if (poke.type === "ground") {
-    pokeGro.push(poke);
-    pokemonSortedByType.Ground = pokeGro;
-    count++;
-  } else if (poke.type === "fairy") {
-    pokeFai.push(poke);
-    pokemonSortedByType.Fairy = pokeFai;
-    count++;
-  } else if (poke.type === "fighting") {
-    pokeFig.push(poke);
-    pokemonSortedByType.Fighting = pokeFig;
-    count++;
-  } else if (poke.type === "psychic") {
-    pokePsy.push(poke);
-    pokemonSortedByType.Psychic = pokePsy;
-    count++;
-  } else if (poke.type === "rock") {
-    pokeRoc.push(poke);
-    pokemonSortedByType.Rock = pokeRoc;
-    count++;
-  } else if (poke.type === "ghost") {
-    pokeGho.push(poke);
-    pokemonSortedByType.Ghost = pokeGho;
-    count++;
-  } else if (poke.type === "ice") {
-    pokeIce.push(poke);
-    pokemonSortedByType.Ice = pokeIce;
-    count++;
-  } else if (poke.type === "dragon") {
-    pokeDra.push(poke);
-    pokemonSortedByType.Dragon = pokeDra;
-    count++;
+for (let i = 0; i < pokemon.length; i++) {
+  if (pokemon[i].starter === true) {
+    game.party.push(pokemon[i]);
+    break;
   }
 }
-// console.log(pokemonSortedByType);
-console.dir(pokemonSortedByType, { maxArrayLength: null });
-console.log(count + " Pokemon checked"); // so that after sorted you can ensure all 151 pokemons are accounted for
+console.log(game.party);
 
-// Desmond's comments
-// easier way to do it is to create the key and array if the key is not found
-// the pseudocode "formula"
-// if (key is found) {
-//    add pokimon to array
-// } else {
-//    create new key with array with this pokemon as 1st element
-// }
+/*
+Exercise 5
+1. Choose three more Pokémon from the `pokemon` array and add them to your party.
+2. Consider different attributes like 'type' or 'HP' for your selection. 
+Which array method will you use to add them?
+Solve Exercise 5 here:
+*/
+
+/*
+let count = 0;
+for (let i = 0; i < pokemon.length; i++) {
+  if (pokemon[i].type === "fire") {
+    game.party.push(pokemon[i]);
+    count++;
+    if (count === 3) break;
+  }
+}
+console.log(game.party);
+*/
+
+/*
+Exercise 6
+1. Set the `completed` property to true for gyms with a difficulty below 3.
+2. Think about how you'd loop through the `gyms` array to check and update the `completed` property.
+
+Solve Exercise 6 here:
+for (let i = 0; i < game.gyms.length; i++) {
+  if (game.gyms[i].difficulty < 3) {
+    game.gyms[i].completed = true;
+  }
+}
+console.log(game.gyms);
+*/
+
+/*
+Exercise 7
+1. Evolve the starter Pokémon you added to your party earlier. Each starter Pokémon evolves into a specific one.
+2. How would you replace the current starter Pokémon in your party with its evolved form?
+
+Hint: 
+  - Pokemon 1: Bulbasaur evolves into Pokemon 2: Ivysaur
+  - Pokemon 4: Charmander evolves into Pokemon 5: Charmeleon
+  - Pokemon 7: Squirtle evolves into Pokemon 8: Wartortle
+  - Pokemon 25: Pikachu evolves into Pokemon 26: Raichu
+
+More Hints: The existing starter Pokemon will be *replaced* in your party with the Pokemon it evolved into. When working with an array of objects, the splice() array method is ideal for replacing one element with another. 
+
+
+Solve Exercise 7 here:
+*/
+
+for (let i = 0; i < game.party.length; i++) {
+  let current = game.party[i];
+  if (current.name === "Bulbasaur") {
+    game.party.splice(i, 1, pokemon[1]);
+  } else if (current.name === "Charmander") {
+    game.party.splice(i, 1, pokemon[4]);
+  } else if (current.name === "Squirtle") {
+    game.party.splice(i, 1, pokemon[7]);
+  } else if (current.name === "Pikachu") {
+    game.party.splice(i, 1, pokemon[25]);
+  }
+}
+console.log(game.party);
+for (let i = 0; i < game.party.length; i++) {
+  console.log(game.party[i].name);
+}
+
+/*
+Exercise 9
+1. Can you print out all the starter Pokémon from the `pokemon` array?
+2. Think about how you can identify a starter Pokémon and then log their names.
+
+
+Solve Exercise 9 here:
+*/
+
+for (let i = 0; i < pokemon.length; i++) {
+  if (pokemon[i].starter) {
+    console.log(pokemon[i].name);
+  }
+}
+
+for (let i = 0; i < game.gyms.length; i++) {
+  if (game.gyms[i].difficulty < 6) {
+    game.gyms[i].completed = true;
+  }
+}
+
+console.log(game.gyms);
+
+/*
+Exercise 11
+1. Complete gyms with a difficulty below 8. Reflect on how this is similar to or different from the previous gym exercises.
+(change the value of `complete` in the qualifying objects from false to true).
+
+Solve Exercise 11 here:
+*/
+for (let i = 0; i < game.gyms.length; i++) {
+  if (game.gyms[i].difficulty < 8) {
+    game.gyms[i].completed = true;
+  }
+}
+
+console.log(game.gyms);
+
+/*
+Exercise 12
+1. Log the entire `game` object to the console. Take a moment to review the changes you've made throughout the exercises.
+
+
+Solve Exercise 12 here:
+*/
+console.log(game);
