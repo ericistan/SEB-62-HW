@@ -11,6 +11,8 @@ body {
 nav {
   background-color: white;
   padding: 8px 16px;
+  display: flex;
+  justify-content: center;
 }
 
 p {
@@ -96,6 +98,18 @@ nav button {
   padding: 6px 15px;
 }
 
-#destinations {
+#destinations,
+#actions {
   display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+#actions {
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+#destinations {
+  flex-grow: 2;
 }
