@@ -50,6 +50,12 @@ Example: isCharAVowel('a') should return true.
 
 Complete the exercise in the space below:
 */
+
+// Desmond's comments
+// you can use toUpperCase or toLowerCase, so
+// that you don't need to do both capital and
+// small for the vowels.
+
 function isCharAVowel(char) {
   const vowels = "aeiouAEIOU";
   return vowels.includes(char);
@@ -166,6 +172,13 @@ Example: basicCalculator(10, 5, 'subtract') should return 5.
 
 Complete the exercise in the space below:
 */
+
+// Desmond's comments
+// if you are using return, you do not need the
+// break, as return already "breaks out" of the switch. Notice in VScode the break is slightly
+// off colour, if you hover over it, VScode
+// will tell you it is unreachable code.
+
 function basicCalculator(num1, num2, str) {
   switch (str) {
     case `add`:

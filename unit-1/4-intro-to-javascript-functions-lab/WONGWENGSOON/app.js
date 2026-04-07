@@ -58,6 +58,10 @@ Example: isCharAVowel('a') should return true.
 Complete the exercise in the space below:
 */
 
+// Desmond's comments
+// you can actually do
+// const vowels = 'aeiou'
+
 const isCharAVowel = (x) => {
   const vowels = ["a", "e", "i", "o", "u"];
   return vowels.includes(x);

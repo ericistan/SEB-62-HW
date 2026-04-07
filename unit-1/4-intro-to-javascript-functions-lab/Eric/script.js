@@ -51,6 +51,11 @@ Example: isCharAVowel('a') should return true.
 
 Complete the exercise in the space below:
 */
+
+// Desmond's comments
+// You can also use the string "aeiou" and use
+// the includes function.
+
 const isCharAVowel = (vowel) => {
   if (
     vowel === "a" ||

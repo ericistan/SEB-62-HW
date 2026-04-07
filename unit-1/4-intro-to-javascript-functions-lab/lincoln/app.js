@@ -54,6 +54,10 @@
 
 // Example: isCharAVowel('a') should return true.
 
+// Desmond's comments
+// you can also do this using a string of
+// vowels "aeiou" and use the include function.
+
 // Complete the exercise in the space below:
 // */
 // // Let me try ternary expression
@@ -176,6 +180,12 @@
 
 // Complete the exercise in the space below:
 // */
+
+// Desmond's comments
+// if you are using return, you do not need the
+// break, as return already "breaks out" of the switch. Notice in VScode the break is slightly
+// off colour, if you hover over it, VScode
+// will tell you it is unreachable code.
 
 // const basicCalculator = (x, y, str) => {
 //   switch (str) {
