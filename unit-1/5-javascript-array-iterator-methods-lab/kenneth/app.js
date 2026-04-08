@@ -101,6 +101,17 @@ born in the 1500's.
   the years 1500 and 1599.
 */
 
+// Desmond's comments
+// let filter do the work (as it is expecting only a
+// boolean) - the inventor.year > 1500 && inventor.
+// year < 1600 would return a true/false and when it
+// is true, filter will place the inventor into the
+// array veryOldInventors
+
+// veryOldInventors = inventors.filter(
+//   (inventor) => inventor.year > 1500 && inventor.year < 1600,
+// );
+
 let veryOldInventors = [];
 
 // Complete the exercise in the space below:
@@ -133,7 +144,16 @@ Hint: Return a new object literal from the callback that looks like:
       { first: "First Name", last: "Last Name" }
 */
 
+// Desmond's comments
+// map would return an array, so there is no need to
+// push.
+//
+// inventorNames = inventors.map((inventor) => {
+//   return { first: inventor.first, last: inventor.last };
+// });
+
 let inventorNames = [];
+
 inventors.map((inventor) => {
   const { first, last } = inventor;
   const inventorObj = {
@@ -168,6 +188,11 @@ Sort the inventors by birth date in ascending order (from those born furthest in
 the past to those born most recently).
 */
 // Complete the exercise in the space below:
+
+// Desmond's comments
+// better way to do it.
+// sortedByBirthYear = inventors.sorted((a, b) => a.year - b.year);
+
 let sortedByBirthYear = [];
 const inventorsByYear = inventors.sort((a, b) => a.year - b.year);
 sortedByBirthYear.push(inventorsByYear);
@@ -226,6 +251,14 @@ Hint: Use the String.prototype.split() method to separate the first and last
       names. You can split the string using ', ' as the separator.
       After splitting the names, rearrange them to the "First Last" format.
 */
+
+// Desmond's comments
+// should use const for nameArr
+
+// const firstLast = people.map((name) => {
+//   const nameArr = name.split(", ");
+//   return `${nameArr[1]} ${nameArr[0]}`;
+// });
 
 let firstLast = [];
 

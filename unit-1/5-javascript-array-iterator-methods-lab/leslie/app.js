@@ -133,6 +133,10 @@ Hint: Return a new object literal from the callback that looks like:
       { first: "First Name", last: "Last Name" }
 */
 
+// Desmond's comment
+// you can
+// return { first, last }
+
 let inventorNames = [];
 
 // Complete the exercise in the space below:
@@ -418,6 +422,14 @@ Hints:
 - Since you want to return an object, be sure to pass an empty {} for the 
   initial value of the "accumulator".
 */
+
+// Desmond's comments
+// this way would be short:
+
+// const travelMethodCounts = travelMethods.reduce((acc, method) => {
+//   acc[method] = (acc[method] || 0) + 1;
+//   return acc;
+// }, {});
 
 let travelMethodCounts = {};
 
