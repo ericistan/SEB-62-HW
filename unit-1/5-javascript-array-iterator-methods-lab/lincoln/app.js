@@ -103,6 +103,14 @@ const comments = [
 //   the years 1500 and 1599.
 // */
 
+// Desmond's comments
+// the callback function will already return a
+// boolean so there is no need to do a return true/
+// false
+// veryOldInventors = inventors.filter(
+//   (inventor) => inventor.year > 1500 && inventor.year < 1600,
+// );
+
 // // let veryOldInventors = [];
 
 // // Complete the exercise in the space below:
@@ -148,6 +156,10 @@ const comments = [
 // //   return inventor;
 // // });
 
+// Desmond's comments
+// use const if you are remove the declaration above
+// const inventorNames
+
 // // Tried using the adding objects with desired kvp in arrow functions
 // let inventorNames = inventors.map((inventor) => ({
 //   first: inventor.first,
@@ -183,6 +195,10 @@ const comments = [
 // // let sortedByBirthYear = [];
 
 // // Complete the exercise in the space below:
+
+// Desmond's comments
+// use const if you are remove the declaration above
+// const sortedByBirthyear
 
 // // use the bubble sort method
 // let sortedByBirthYear = inventors.sort(
@@ -222,6 +238,16 @@ const comments = [
 // // let inventorNamedAda = {};
 
 // // Complete the exercise in the space below:
+
+// Desmond's comments
+// use const if you are remove the declaration above
+// const inventorNamedAda
+// and with find, don't need to do an if or return
+//   return adaFinder.first === "Ada"; returns a boolean
+
+// const inventorNamedAda = inventors.find(function (adaFinder) {
+//   return adaFinder.first === "Ada";
+// });
 
 // // let inventorNamedAda = inventors.find(function (adaFinder) {
 // //   if (adaFinder.first === "Ada") {
@@ -326,6 +352,15 @@ const comments = [
 
 // // Complete the exercise in the space below:
 
+// Desmond's comments
+// the callback function should be simplier:
+// return age >= 18 would return a boolean
+
+// (developer) => {
+//   const age = new Date().getFullYear() - developer.year
+//   return age >= 18
+// }
+
 // // let isAdultPresent = devs.some((developer) => {
 // //   const age = new Date().getFullYear() - developer.year;
 // //   if (age >= 18) {
@@ -363,6 +398,9 @@ const comments = [
 
 // // Complete the exercise in the space below:
 
+// Desmond's comments
+// as with the above exercise, you just need to return age >= 19; This returns a boolean.
+
 // // let isEveryone19OrOlder = devs.every(function (developer) {
 // //   const age = new Date().getFullYear() - developer.year;
 // //   if (age >= 19) {
@@ -395,6 +433,9 @@ const comments = [
 // // let commentById = {};
 
 // // Complete the exercise in the space below:
+
+// Desmond's comments
+// just need to return findID.id === 823423
 
 // // let commentById = comments.find((findID) => {
 // //   if (findID.id === 823423) {
@@ -489,6 +530,14 @@ Hints:
 // let travelMethodCounts = {};
 
 // Complete the exercise in the space below:
+
+// Desmond's comments
+// shorter way of doing:
+
+// const travelMethodCounts = travelMethods.reduce((acc, method) => {
+//   acc[method] = (acc[method] || 0) + 1;
+//   return acc;
+// }, {});
 
 // check for travel methods and count them
 const checkTravel = (total, method) => {
