@@ -9,8 +9,8 @@ const calculator = document.querySelector("#calculator");
 
 /*-------------------------------- Variables --------------------------------*/
 
-let storedNumber = "";
-let storedNumber2 = "";
+let storedNumber = [];
+let storedNumberPrevious = [];
 let storedOperator = "";
 let computed = "";
 
@@ -21,37 +21,42 @@ let computed = "";
 /*-------------------------------- Functions --------------------------------*/
 
 // Note all below console.log are optional, just for checking purposes
-// This version only takes in single digit for computing
 calculator.addEventListener("click", (event) => {
   const value = event.target.innerText;
   console.log(`calculator key ${value} was pressed`);
 
   // Example
   if (event.target.classList.contains("number")) {
-    // This if condition stored 2 number with a nested if for checking
-    if (storedNumber === "") {
-      display.innerHTML = value;
-      storedNumber = event.target.innerText;
-      console.log(`First ${storedNumber} is successfully stored`);
-    } else if (storedNumber !== "" && storedNumber2 === "") {
-      display.innerHTML = value;
-      storedNumber2 = event.target.innerText;
-      console.log(`Second ${storedNumber2} is successfully stored`);
+    if (computed !== "") {
+      //to initialize if there was previous computing
+      storedNumber = [];
+      storedNumberPrevious = [];
+      storedOperator = "";
+      computed = "";
     }
+
+    storedNumber.push(event.target.innerText);
+    console.log(`First ${storedNumber} is successfully stored`);
+    display.innerHTML = storedNumber.join("");
   }
 
   // Example
   if (event.target.classList.contains("operator")) {
     // This if condition store operator or initialize variables
     if (event.target.innerText !== "C" && storedOperator === "") {
-      display.innerHTML = value;
+      // this if condition only takes in the 1st Operator pressed
+      storedNumberPrevious = storedNumber;
+      console.log(`Previous ${storedNumberPrevious} is successfully stored`);
       storedOperator = event.target.innerText;
-      console.log(`${storedOperator} is successfully stored`);
+      console.log(`Operator ${storedOperator} is successfully stored`);
+      display.innerHTML = event.target.innerText;
+      storedNumber = [];
+      console.log(`StoredNumber ${storedNumber} is successfully cleared`);
     } else if (event.target.innerText === "C") {
       display.innerHTML = value;
       // If C is clicked, initialize all let variables to string
-      storedNumber = "";
-      storedNumber2 = "";
+      storedNumber = [];
+      storedNumberPrevious = [];
       storedOperator = "";
       computed = "";
     }
@@ -60,29 +65,37 @@ calculator.addEventListener("click", (event) => {
   if (event.target.classList.contains("equals")) {
     // This if condition will handle all computing
     if (storedNumber !== " " && storedOperator === "+") {
-      computed = parseInt(storedNumber) + parseInt(storedNumber2);
+      computed =
+        parseInt(storedNumberPrevious.join("")) +
+        parseInt(storedNumber.join(""));
       display.innerHTML = computed;
       console.log(
-        `Check if ${storedNumber} ${storedOperator} ${storedNumber2} is equal to ${computed}`,
+        `Check if ${storedNumberPrevious} ${storedOperator} ${storedNumber} is equal to ${computed}`,
       );
     } else if (storedNumber !== " " && storedOperator === "-") {
-      computed = parseInt(storedNumber) - parseInt(storedNumber2);
+      computed =
+        parseInt(storedNumberPrevious.join("")) -
+        parseInt(storedNumber.join(""));
       display.innerHTML = computed;
       console.log(
-        `Check if ${storedNumber} ${storedOperator} ${storedNumber2} is equal to ${computed}`,
+        `Check if ${storedNumberPrevious} ${storedOperator} ${storedNumber} is equal to ${computed}`,
       );
     } else if (storedNumber !== " " && storedOperator === "*") {
-      computed = parseInt(storedNumber) * parseInt(storedNumber2);
+      computed =
+        parseInt(storedNumberPrevious.join("")) *
+        parseInt(storedNumber.join(""));
       display.innerHTML = computed;
       console.log(
-        `Check if ${storedNumber} ${storedOperator} ${storedNumber2} is equal to ${computed}`,
+        `Check if ${storedNumberPrevious} ${storedOperator} ${storedNumber} is equal to ${computed}`,
       );
     } else if (storedNumber !== " " && storedOperator === "/") {
       // must use parseInt to convert string to number for computing
-      computed = parseInt(storedNumber) / parseInt(storedNumber2);
+      computed =
+        parseInt(storedNumberPrevious.join("")) /
+        parseInt(storedNumber.join(""));
       display.innerHTML = computed;
       console.log(
-        `Check if ${storedNumber} ${storedOperator} ${storedNumber2} is equal to ${computed}`,
+        `Check if ${storedNumberPrevious} ${storedOperator} ${storedNumber} is equal to ${computed}`,
       );
     }
   }
