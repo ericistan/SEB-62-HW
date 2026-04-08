@@ -27,6 +27,7 @@ const winningCombos = [
 
 //2) Store cached element references.
 const messageEl = document.getElementById("message");
+const resetBtnEl = document.getElementById("reset");
 
 //3) Upon loading, the game state should be initialized, and a function should
 //   be called to render this game state.
@@ -54,11 +55,11 @@ function updateBoard() {
 }
 
 function updateMessage() {
-  if (winner === false || tie === false) {
+  if (winner === false && tie === false) {
     messageEl.textContent = `It's the other player's turn!`;
   } else if (winner === false && tie === true) {
     messageEl.textContent = `It's a tie!`;
-  } else if (winner === true) {
+  } else {
     messageEl.textContent = `Player wins!`;
   }
 }
@@ -79,6 +80,8 @@ function handleClick(event) {
   placePiece(squareIndex);
   checkForWinner();
   checkForTie();
+  switchPlayerTurn();
+  render();
 }
 
 squareEls.forEach((square) => {
@@ -125,6 +128,17 @@ checkForTie = () => {
     tie = true;
   }
 };
-//7) Create Reset functionality. */
 
+switchPlayerTurn = () => {
+  if (winner === true || tie === true) {
+    return;
+  } else if (turn === "X") {
+    turn = "O";
+  } else {
+    turn = "X";
+  }
+  console.log("turn is now:", turn);
+};
+//7) Create Reset functionality. */
 init();
+resetBtnEl.addEventListener("click", init);
