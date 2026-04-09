@@ -44,7 +44,7 @@ touch notes.txt
 
 This will:
 
-1. Create a new file named notes.txt if it does not exist
+1. Create a new file named notes.txt if it does not exist yet
 
 2. Update the timestamp if notes.txt already exists
 
