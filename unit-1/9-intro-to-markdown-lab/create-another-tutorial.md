@@ -1,6 +1,6 @@
 # How to create a file using the Terminal
 
-![image of a terminal typing out sudocode][https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D]
+![image of a terminal typing out sudocode](https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 Creating files from the Terminal is a core skill for any developer.
 In this short guide, you’ll learn a few common commands to create files quickly without leaving your keyboard.
 
