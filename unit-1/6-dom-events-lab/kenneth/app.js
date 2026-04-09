@@ -1,3 +1,8 @@
+// Desmond's comment
+// Great job in this homework. You have greatly
+// modularised the code. Making it very easy to
+// read
+
 /*-------------------------------- Constants --------------------------------*/
 const calculator = document.querySelector("#calculator");
 const displayScreen = document.querySelector(".display");
@@ -12,6 +17,11 @@ let result = "";
 calculator.addEventListener("click", (event) => {
   const btnValue = event.target.innerText;
   const btnClass = event.target.classList;
+
+  // Desmond's comments
+  // you might want to use if...else if for this
+  // because if a btnClass contains number, it
+  // cannot contain an operator at the same time
 
   // Handle numbers//
   if (btnClass.contains("number")) {

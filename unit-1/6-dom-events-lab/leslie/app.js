@@ -1,3 +1,7 @@
+// Desmond's comment
+// Very well done, it is nice that you pushed
+// yourself to do more than was required
+
 /*-------------------------------- Constants --------------------------------*/
 const cachedActions = [];
 
@@ -10,6 +14,7 @@ const additiveStr = "+-";
 
 /*----------------------------- Event Listeners -----------------------------*/
 // EventListener to listen for clicks within #calculator parent
+
 document.querySelector("#calculator").addEventListener("click", function (e) {
   // console.log(e.target.innerHTML);
 
@@ -26,12 +31,21 @@ document.querySelector("#calculator").addEventListener("click", function (e) {
       const lastCachedAction = cachedActions.at(-1);
       // console.log(lastCachedAction);
 
+      // Desmond's comments
+      // switch can call functions, you might
+      // want to move the codes to functions to
+      // make it easier to read and maintain
+
       switch (buttonType) {
         case "operator":
           if (buttonValue === "C") {
             // clear cached actions
             clearActions();
           } else {
+            // Desmond's comments
+            // this part can use && to make it
+            // less complex
+
             if (lastCachedAction.type === "operator") {
               if (lastCachedAction.value !== buttonValue) {
                 if (buttonValue === "-") {
@@ -47,6 +61,11 @@ document.querySelector("#calculator").addEventListener("click", function (e) {
                 }
               }
             } else {
+              // Desmond's comments
+              // i think you should be able to
+              // combine both if statements.
+              // if (lastCachedAction.type === 'equals && lastCachedAction.value === '-')
+
               // treat the equal action as a new default number in cache
               if (lastCachedAction.type === "equals") {
                 lastCachedAction.type = "number";
@@ -77,6 +96,9 @@ document.querySelector("#calculator").addEventListener("click", function (e) {
         case "equals":
           resolveActions();
           break;
+
+        // Desmond's comments
+        // no need default if not used.
         default:
           break;
       }

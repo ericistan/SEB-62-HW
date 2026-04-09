@@ -9,6 +9,16 @@ let previousInput = "";
 /*------------------------ Cached Element References ------------------------*/
 //not sure what this means.
 /*----------------------------- Event Listeners -----------------------------*/
+
+// Desmond's comments
+// Great job but if you are going to add an
+// event listener to all the buttons with the
+// same function (that has all the "functions"
+// of a calculator), you can just add 1 event
+// listener to #calculator
+// You might also refactor the codes to move
+// some codes into functions
+
 buttons.forEach((button) => {
   button.addEventListener("click", (event) => {
     const value = event.target.innerText; // As a user, I want to be able to select numbers so that I can perform operations with them.

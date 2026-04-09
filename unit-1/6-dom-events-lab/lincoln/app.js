@@ -20,6 +20,15 @@ let computed = "";
 
 /*-------------------------------- Functions --------------------------------*/
 
+// Desmond's comment
+// Nice work but you should modularise you codes
+// and put the codes in your callback function
+// into other functions, this would make it
+// easier to read and maintain.
+// And also, remove or comment console.log, when
+// you are done. It is not good to leave them
+// around.
+
 // Note all below console.log are optional, just for checking purposes
 calculator.addEventListener("click", (event) => {
   const value = event.target.innerText;
