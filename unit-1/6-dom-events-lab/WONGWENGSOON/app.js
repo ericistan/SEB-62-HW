@@ -1,5 +1,9 @@
 // WONG WENG SOON
 
+// Desmond's comments
+// Good job but try to modularise your codes, it
+// would make it easier to read and maintain
+
 let num1;
 let num2;
 let operator;
@@ -15,6 +19,12 @@ calculator.addEventListener("click", function (event) {
     operator = null;
     result = null;
   }
+
+  // Desmond's comment
+  // for these 3 if statments, you should be
+  // able to use if...else if, because if a
+  // classList contains number, it cannot
+  // contain operator at the same time.
 
   if (event.target.classList.contains("number")) {
     display.innerText = display.innerText + event.target.innerText;
