@@ -1,0 +1,77 @@
+body {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* #board {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 0;
+}
+
+.square {
+  width: 250px;
+  height: 250px;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;
+  color: white;
+} */
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 250px);
+  gap: 5px; /* controls thickness */
+  background-color: white; /* grid line color */
+  padding: 5px; /* outer border thickness */
+}
+
+.square {
+  width: 250px;
+  height: 250px;
+  background-color: black; /* inside squares */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 120px;
+  color: white;
+}
+
+#message {
+  color: white;
+  top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+/* #reset {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+} */
+
+#reset {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 8px;
+}
+
+#reset:hover {
+  background-color: #ddd;
+}
