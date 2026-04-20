@@ -52,6 +52,8 @@ function updateBoard(cell, idx) {
 }
 
 function changePlayer() {
+  // Desmond's comments
+  // nice use of ternary
   turn = turn === "X" ? "O" : "X";
 }
 
