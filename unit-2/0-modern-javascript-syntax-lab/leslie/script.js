@@ -130,3 +130,20 @@ console.log(userProfile);
 const myFunction = ((noun = "cat", adjective = "orange") => {
   console.log(`The ${noun} is ${adjective}`);
 })();
+
+// ! Exercise 9:
+// a. Convert the following `if...else` statement into a ternary:
+//
+//    if (pizza === 'tasty') {
+//      console.log('yum');
+//    } else {
+//      console.log('yuck');
+//    }
+//
+// Starting code (don't modify this):
+
+const pizza = "tasty";
+
+// Your code here:
+
+console.log(pizza === "tasty" ? "yum" : "yuck");
