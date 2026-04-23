@@ -1,5 +1,6 @@
 #root {
   margin: 16px;
+  font-size: 0.8rem;
 }
 
 ul {
@@ -13,4 +14,21 @@ li {
   padding: 8px;
   border: whitesmoke 3px solid;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+}
+
+button {
+  border-radius: 10px;
+  border-style: none;
+  padding: 0.25rem 1rem;
+}
+
+img {
+  height: 120px;
+}
+
+.row {
+  margin-bottom: 1rem;
 }
