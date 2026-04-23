@@ -3,7 +3,7 @@ import React from "react";
 const Input = (props) => {
   return (
     <>
-      <input name={props.name} onChange={props.onChange} />
+      <input name={props.name} value={props.value} onChange={props.onChange} />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "./components/Form";
+import Display from "./components/Display";
 
 function App() {
   const initFormData = [
@@ -8,13 +9,26 @@ function App() {
     { label: "Date", name: "date", value: "" },
   ];
 
+  const initDisplayData = [];
+
   const [formData, setFormData] = useState(initFormData);
-  const [displayData, setDisplayData] = useState("");
+  const [displayData, setDisplayData] = useState(initDisplayData);
+
+  const handleFormSubmit = () => {
+    const newData = { item: formData[0].value, price: formData[1].value, date: formData[2].value };
+    const newDisplayData = [...displayData, newData];
+    setDisplayData(newDisplayData);
+    setFormData(initFormData);
+  };
+
+  const handleDisplayDelete = (id) => {
+    setDisplayData((prevState) => [...prevState].toSpliced(id, 1));
+  };
 
   return (
     <div>
-      <Form data={formData} setData={setFormData} />
-      {JSON.stringify(formData)}
+      <Form data={formData} setData={setFormData} handleSubmit={handleFormSubmit} />
+      <Display data={displayData} handleDelete={handleDisplayDelete} />
     </div>
   );
 }

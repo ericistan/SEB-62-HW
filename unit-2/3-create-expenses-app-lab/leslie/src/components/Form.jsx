@@ -14,13 +14,13 @@ const Form = (props) => {
     <div>
       {props.data.map((row, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <Label value={row.label} />
             <Input name={row.name} value={row.value} onChange={handleChange} />
           </div>
         );
       })}
-      <Button />
+      <Button handleClick={props.handleSubmit}>Submit</Button>
     </div>
   );
 };
