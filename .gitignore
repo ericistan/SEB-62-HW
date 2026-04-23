@@ -131,3 +131,11 @@ dist/
 
 unit-2/2-react-state-management-lab/lincoln/src/App copy 2.jsx
 
+unit-2/3-create-expenses-app-lab/lincoln/src copy/main.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/index.css
+unit-2/3-create-expenses-app-lab/lincoln/src copy/ErrorComponent.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/components/Label.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/components/Item.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/components/Input.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/components/Form.jsx
+unit-2/3-create-expenses-app-lab/lincoln/src copy/components/Display.jsx
