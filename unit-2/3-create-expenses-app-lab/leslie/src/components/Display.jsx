@@ -1,9 +1,10 @@
 import React from "react";
 import Item from "./Item";
+import styles from "../app.module.css";
 
 const Display = (props) => {
   return (
-    <div>
+    <div className={`${styles["display"]}`}>
       {props.data.map((row, idx) => {
         return (
           <Item

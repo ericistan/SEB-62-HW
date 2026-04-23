@@ -1,10 +1,11 @@
 import React from "react";
 import Label from "./Label";
 import Button from "./Button";
+import styles from "../app.module.css";
 
 const Item = (props) => {
   return (
-    <div id={props.id}>
+    <div className={`${styles["display-item"]}`} id={props.id}>
       <Label value={props.item} />
       <Label value={props.price} />
       <Label value={props.date} />

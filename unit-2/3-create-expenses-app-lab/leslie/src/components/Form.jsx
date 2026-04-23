@@ -2,6 +2,7 @@ import React from "react";
 import Label from "./Label";
 import Input from "./Input";
 import Button from "./Button";
+import styles from "../app.module.css";
 
 const Form = (props) => {
   const handleChange = (e) => {
@@ -11,12 +12,12 @@ const Form = (props) => {
   };
 
   return (
-    <div>
+    <div className={`${styles["form"]}`}>
       {props.data.map((row, idx) => {
         return (
           <div key={idx}>
-            <Label value={row.label} />
-            <Input name={row.name} value={row.value} onChange={handleChange} />
+            <Label value={row.label} className={`${styles["form-label"]}`} />
+            <Input name={row.name} value={row.value} onChange={handleChange} className={`${styles["form-input"]}`} />
           </div>
         );
       })}

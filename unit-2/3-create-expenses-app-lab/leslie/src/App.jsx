@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "./components/Form";
 import Display from "./components/Display";
+import styles from "./app.module.css";
 
 function App() {
   const initFormData = [
@@ -26,7 +27,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div className={`${styles["app"]}`}>
       <Form data={formData} setData={setFormData} handleSubmit={handleFormSubmit} />
       <Display data={displayData} handleDelete={handleDisplayDelete} />
     </div>
