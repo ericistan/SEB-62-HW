@@ -17,7 +17,13 @@ const Form = (props) => {
         return (
           <div key={idx}>
             <Label value={row.label} className={`${styles["form-label"]}`} />
-            <Input name={row.name} value={row.value} onChange={handleChange} className={`${styles["form-input"]}`} />
+            <Input
+              type={row.type || "text"}
+              name={row.name}
+              value={row.value}
+              onChange={handleChange}
+              className={`${styles["form-input"]}`}
+            />
           </div>
         );
       })}

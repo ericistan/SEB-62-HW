@@ -14,6 +14,7 @@ const Display = (props) => {
             key={idx}
             id={idx}
             handleDelete={props.handleDelete}
+            handleUpdate={props.handleUpdate}
           />
         );
       })}

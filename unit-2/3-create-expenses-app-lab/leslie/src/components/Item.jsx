@@ -9,7 +9,7 @@ const Item = (props) => {
       <Label value={props.item} />
       <Label value={props.price} />
       <Label value={props.date} />
-      <Button>Update</Button>
+      <Button handleClick={() => props.handleUpdate(props.id)}>Update</Button>
       <Button handleClick={() => props.handleDelete(props.id)}>Delete</Button>
     </div>
   );
