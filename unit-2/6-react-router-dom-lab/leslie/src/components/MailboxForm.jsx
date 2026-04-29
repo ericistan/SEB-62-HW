@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./MailboxForm.module.css";
 
 const MailboxForm = (props) => {
   const [mailbox, setMailbox] = useState({ boxOwner: "", boxSize: "Small" });
@@ -10,7 +11,7 @@ const MailboxForm = (props) => {
   return (
     <section className="container">
       <h1>New Mailbox</h1>
-      <div className="form">
+      <div className={styles.form}>
         <label htmlFor="boxholder-name">Enter a Boxholder:</label>
         <input
           type="text"
