@@ -19,7 +19,11 @@ function App() {
           ? `Your last searched term was "${searchDetails.searchString}".`
           : `Search for a starship by name.`}
       </div>
-      <StarshipSearch setStarships={setStarships} setSearchDetails={setSearchDetails} />
+      <StarshipSearch
+        setStarships={setStarships}
+        setSearchDetails={setSearchDetails}
+        isSearchApplied={searchDetails.searchString}
+      />
       <StarshipList starships={starships} searchDetails={searchDetails} />
     </div>
   );
