@@ -12,7 +12,7 @@ const useStarshipData = () => {
 
       const resData = await res.json();
       if (searchString) {
-        const filtered = resData.filter((starship) => starship.name.includes(searchString));
+        const filtered = resData.filter((starship) => starship.name.toLowerCase().includes(searchString.toLowerCase()));
         setData(filtered);
       } else {
         setData(resData);
