@@ -1,0 +1,6 @@
+How to install react-router:
+
+1. npm i react-router
+2. at main.jsx, import BrowserRouter and wrap the App component with it
+3. import Routes and Route from react-router-dom
+4. Define your routes using the Route component inside the Routes component 
