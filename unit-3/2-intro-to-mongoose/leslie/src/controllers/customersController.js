@@ -51,3 +51,13 @@ export const postCustomers = async (req, res) => {
     res.status(400).json({ status: "error", msg: "An error has occured" });
   }
 };
+
+export const patchCustomer = async (req, res) => {
+  try {
+    await Customers.findByIdAndUpdate(req.body.id, { name: req.body.name, age: req.body.age });
+    res.json({ status: "ok", msg: "customer succussfully patched" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "An error has occured" });
+  }
+};
