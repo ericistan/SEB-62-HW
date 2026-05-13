@@ -61,3 +61,13 @@ export const patchCustomer = async (req, res) => {
     res.status(400).json({ status: "error", msg: "An error has occured" });
   }
 };
+
+export const deleteCustomer = async (req, res) => {
+  try {
+    await Customers.findByIdAndDelete(req.body.id);
+    res.json({ status: "ok", msg: "customer successfully removed" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "An error has occured" });
+  }
+};
