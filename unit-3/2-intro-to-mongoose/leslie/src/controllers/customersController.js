@@ -41,3 +41,13 @@ export const createCustomer = async (req, res) => {
     res.status(400).json({ status: "error", msg: "An error has occured" });
   }
 };
+
+export const postCustomers = async (req, res) => {
+  try {
+    const customers = await Customers.findById(req.body.id);
+    res.json(customers);
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "An error has occured" });
+  }
+};
