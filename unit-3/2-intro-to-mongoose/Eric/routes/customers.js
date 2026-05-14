@@ -25,9 +25,9 @@ router.get("/", async (req, res) => {
 });
 
 //read one
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
   try {
-    const customer = await Customer.findById(req.body.id);
+    const customer = await Customer.findById(req.params.id);
     res.json(customer);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -35,9 +35,9 @@ router.post("/", async (req, res) => {
 });
 
 //update
-router.patch("/", async (req, res) => {
+router.patch("/:id", async (req, res) => {
   try {
-    const customer = await Customer.findByIdAndUpdate(req.body.id, req.body, {
+    const customer = await Customer.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.json(customer);
@@ -47,9 +47,9 @@ router.patch("/", async (req, res) => {
 });
 
 //delete
-router.delete("/", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const customer = await Customer.findByIdAndDelete(req.body.id);
+    const customer = await Customer.findByIdAndDelete(req.params.id);
     res.json(customer);
   } catch (error) {
     res.status(400).json({ error: error.message });
