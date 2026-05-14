@@ -73,3 +73,14 @@ export const updateSongById = async (req, res, next) => {
     return next(error);
   }
 };
+
+export const deleteSongById = async (req, res, next) => {
+  try {
+    await SongsModel.findByIdAndDelete(req.params.id);
+
+    res.json({ status: "ok", message: "song successfully deleted" });
+  } catch (error) {
+    error.status = 400;
+    return next(error);
+  }
+};

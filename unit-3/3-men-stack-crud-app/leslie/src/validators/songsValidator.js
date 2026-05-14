@@ -11,3 +11,5 @@ export const checkSongsUpdateInput = [
   param("id", "id is required").exists().isMongoId(),
   body("released", "invalid date format").optional().isDate(),
 ];
+
+export const checkSongParamId = [param("id", "id is required").exists().isMongoId()];
