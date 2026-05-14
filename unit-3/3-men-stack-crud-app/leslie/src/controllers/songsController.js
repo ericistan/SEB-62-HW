@@ -56,3 +56,20 @@ export const getSongById = async (req, res, next) => {
     return next(error);
   }
 };
+
+export const updateSongById = async (req, res, next) => {
+  try {
+    await SongsModel.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+      artist: req.body.artist,
+      genre: req.body.genre,
+      lyrics: req.body.lyrics,
+      released: req.body.released,
+    });
+
+    res.json({ status: "ok", message: "song successfully updated" });
+  } catch (error) {
+    error.status = 400;
+    return next(error);
+  }
+};
