@@ -8,6 +8,6 @@ const router = express.Router();
 router.get("/test", testServer);
 router.put("/songs", checkSongsInput, checkErrors, createSong);
 router.get("/songs", getSongs);
-router.post("/songs", getSongById);
+router.post("/songs/:id", getSongById);
 
 export default router;

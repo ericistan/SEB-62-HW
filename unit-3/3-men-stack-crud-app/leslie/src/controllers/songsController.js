@@ -49,7 +49,7 @@ export const getSongs = async (req, res, next) => {
 
 export const getSongById = async (req, res, next) => {
   try {
-    const song = await SongsModel.findById(req.body.id);
+    const song = await SongsModel.findById(req.params.id);
     res.json(song);
   } catch (error) {
     error.status = 400;
