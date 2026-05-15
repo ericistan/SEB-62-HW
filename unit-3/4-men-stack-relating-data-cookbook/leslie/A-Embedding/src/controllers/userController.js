@@ -91,3 +91,26 @@ export const updateFoodByUserIdAndFoodId = async (req, res, next) => {
     return next(setError(error, 400));
   }
 };
+
+export const deleteFoodByUserIdAndFoodId = async (req, res, next) => {
+  try {
+    if (req.params.userId !== req.decoded.userId) {
+      console.error("Unable to create foods for another user");
+      return next(getError(403, "Unable to create foods for another user"));
+    }
+
+    const user = await UserModel.findById(req.params.userId);
+    if (!user) {
+      console.error("User not found");
+      return next(getError(401, "User not found"));
+    }
+
+    user.pantry.pull(req.params.foodId);
+
+    await user.save();
+
+    res.json({ status: "ok", message: "Food deleted" });
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};

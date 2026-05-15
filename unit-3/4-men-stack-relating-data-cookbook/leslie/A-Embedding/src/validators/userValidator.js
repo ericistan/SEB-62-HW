@@ -18,3 +18,8 @@ export const checkUpdateFoodByUserIdAndFoodId = [
   param("foodId").exists().withMessage("foodId is required"),
   body("name").notEmpty().withMessage("name of food cannot be empty"),
 ];
+
+export const checkDeleteFoodByUserIdAndFoodId = [
+  param("userId").exists().withMessage("userId is required"),
+  param("foodId").exists().withMessage("foodId is required"),
+];
