@@ -1,12 +1,36 @@
 import express from "express";
-import { createFoodsByUserId, getAllFoodsByUserId } from "../controllers/userController.js";
+import {
+  createFoodsByUserId,
+  getAllFoodsByUserId,
+  getFoodByUserIdAndFoodId,
+  updateFoodByUserIdAndFoodId,
+} from "../controllers/userController.js";
 import { isAuth } from "../middleware/authMiddleware.js";
-import { checkCreateFoodsInputs, checkGetAllFoodsInputs } from "../validators/userValidator.js";
+import {
+  checkCreateFoodsInputs,
+  checkGetAllFoodsInputs,
+  checkGetFoodByUserIdAndFoodId,
+  checkUpdateFoodByUserIdAndFoodId,
+} from "../validators/userValidator.js";
 import { checkErrors } from "../validators/checkErrors.js";
 
 const router = express.Router();
 
-router.get("/users/:userid/foods", isAuth, checkGetAllFoodsInputs, checkErrors, getAllFoodsByUserId);
-router.put("/users/:userid/foods", isAuth, checkCreateFoodsInputs, checkErrors, createFoodsByUserId);
+router.get("/users/:userId/foods", isAuth, checkGetAllFoodsInputs, checkErrors, getAllFoodsByUserId);
+router.put("/users/:userId/foods", isAuth, checkCreateFoodsInputs, checkErrors, createFoodsByUserId);
+router.post(
+  "/users/:userId/foods/:foodId",
+  isAuth,
+  checkGetFoodByUserIdAndFoodId,
+  checkErrors,
+  getFoodByUserIdAndFoodId,
+);
+router.patch(
+  "/users/:userId/foods/:foodId",
+  isAuth,
+  checkUpdateFoodByUserIdAndFoodId,
+  checkErrors,
+  updateFoodByUserIdAndFoodId,
+);
 
 export default router;
