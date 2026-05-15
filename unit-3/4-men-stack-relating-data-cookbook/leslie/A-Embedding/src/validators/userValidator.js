@@ -14,3 +14,10 @@ export const checkCreateUserInputs = [
     .isLength({ min: 8, max: 64 })
     .withMessage("passwords must be between 8 and 64 characters"),
 ];
+
+export const checkLoginInputs = [
+  body("username").exists().withMessage("username is required"),
+  body("password").exists().withMessage("password is required"),
+];
+
+export const checkRefreshAccessInputs = [body("refreshToken").exists().withMessage("refreshToken is required")];
