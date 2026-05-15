@@ -98,6 +98,20 @@ import ModelName from "../models/schema.js";
 // Define your controller functions here
 ```
 
+D. ROUTER FOLDER, ROUTER.JS
+Create router folder with router.js file created and add the following line:
+
+```js
+import express from "express";
+import * as controllers from "../controllers/controller.js";
+const router = express.Router();
+// Define your routes here and use the controller functions
+router.get("/some-route", controllers.someControllerFunction);
+router.post("/some-route", controllers.someOtherControllerFunction);
+
+export default router;
+```
+
 Z. MIDDLEWARES FOLDER, MIDDLEWARE.JS
 Create middlewares folder with middleware.js file created.
 This is an example of errorhandler.js
@@ -281,4 +295,54 @@ export const refreshAccessToken = async (req, res, next) => {
     return next(error);
   }
 };
+```
+
+E. BRUNO
+At bruno, add the following:
+
+1. Define environment variables for ACCESS_SECRET and REFRESH_SECRET.
+2. At collection of auth, add bearer token with {{access token}}
+3. At post script, add the following code where the generated tokens are stored in the environment variables:
+
+```js
+const jsonData = res.getBody();
+bru.setEnvVar("access_token", jsonData.access);
+bru.setEnvVar("refresh_token", jsonData.refresh);
+```
+
+F. MIDDLEWARES FOLDER, AUTHMIDDLEWARE.JS
+Create authMiddleware.js file in middlewares folder and add the following code:
+
+```js
+import jwt from "jsonwebtoken";
+export const auth = (req, res, next) => {
+  if (!("authorization" in req.headers)) {
+    return res.status(400).json({ status: "error", message: "no token found" });
+  }
+  const token = req.headers["authorization"].replace("Bearer ", ""); // removal of the word "Bearer "
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
+      req.decoded = decoded;
+      next();
+    } catch (error) {
+      return res.status(401).json({ status: "error", message: "unauthorised" });
+    }
+  } else {
+    return res.status(403).send({ status: "error", message: "missing token" });
+  }
+};
+```
+
+Then at server.js, add the following code to import the auth middleware and use it in a protected route:
+
+```js
+import { auth } from "./middlewares/authMiddleware.js";
+
+// Use the auth middleware in a protected route
+app.use("/protected", auth, someRouterFunction);
+
+// OR you may put it before the endpoint like this:
+app.use(auth);
+app.use("/protected", someRouterFunction);
 ```
