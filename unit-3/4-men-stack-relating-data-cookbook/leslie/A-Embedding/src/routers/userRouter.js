@@ -1,12 +1,9 @@
 import express from "express";
-import { createUser, loginUser, refreshAccessToken } from "../controllers/userController.js";
-import { checkCreateUserInputs, checkLoginInputs, checkRefreshAccessInputs } from "../validators/userValidator.js";
-import { checkErrors } from "../validators/checkErrors.js";
+import { getAllFoodsByUserId } from "../controllers/userController.js";
+import { isAuth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.put("/users", checkCreateUserInputs, checkErrors, createUser);
-router.post("/users", checkLoginInputs, checkErrors, loginUser);
-router.post("/users/refresh", checkRefreshAccessInputs, checkErrors, refreshAccessToken);
+router.get("/users/:id/foods", isAuth, getAllFoodsByUserId);
 
 export default router;
