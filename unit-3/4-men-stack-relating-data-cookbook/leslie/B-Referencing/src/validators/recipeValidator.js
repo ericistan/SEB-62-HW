@@ -7,3 +7,8 @@ export const checkCreateRecipeInputs = [
 ];
 
 export const checkGetRecipeById = [param("recipeId").notEmpty().withMessage("Recipe id is required")];
+
+export const checkUpdateRecipeByIdInputs = [
+  body("name").optional().notEmpty().withMessage("Name cannot be empty"),
+  body("ingredients.*").isMongoId().withMessage("Ingredient id must be a valid mongoId"),
+];
