@@ -1,5 +1,6 @@
+import IngredientModel from "../models/IngredientModel.js";
 import RecipeModel from "../models/RecipeModel.js";
-import { getError, setError } from "../utils/appUtils.js";
+import { getError, hasDuplicates, setError } from "../utils/appUtils.js";
 
 export const getRecipes = async (req, res, next) => {
   try {
@@ -18,10 +19,25 @@ export const createRecipe = async (req, res, next) => {
       return next(getError(403, "Recipe already exists"));
     }
 
+    if (hasDuplicates(req.body.ingredients)) {
+      console.error("Duplicates found in ingredients");
+      return next(getError(400, "Duplicates found in ingredients"));
+    }
+
+    const countExistingIngredients = await IngredientModel.countDocuments({
+      _id: { $in: req.body.ingredients },
+    });
+
+    if (countExistingIngredients !== req.body.ingredients.length) {
+      console.error("Ingredients contain foreign ids");
+      return next(getError(422, "Contains invalid value(s)"));
+    }
+
     await RecipeModel.create({
       name: req.body.name,
       instructions: req.body.instructions,
       owner: req.decoded.userId,
+      ingredients: req.body.ingredients,
     });
 
     res.json({ status: "ok", message: "Recipe successfully added" });

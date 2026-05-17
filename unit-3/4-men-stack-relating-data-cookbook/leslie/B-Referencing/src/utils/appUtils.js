@@ -9,3 +9,5 @@ export const setError = (error, status, message = undefined) => {
   if (message) error.message = message;
   return error;
 };
+
+export const hasDuplicates = (arr) => new Set(arr).size !== arr.length;
