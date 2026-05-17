@@ -2,14 +2,13 @@ import UserModel from "../models/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { v4 as uuidv4 } from "uuid";
+import { getError, setError } from "../utils/appUtils.js";
 
 export const createUser = async (req, res, next) => {
   try {
     const userFound = await UserModel.findOne({ username: req.body.username });
     if (userFound) {
-      const error = new Error("User already exists");
-      error.status = 409;
-      return next(error);
+      return next(getError("409", "User already exists"));
     }
 
     const peppered = process.env.PASSWORD_PEPPER + req.body.password;
@@ -22,8 +21,7 @@ export const createUser = async (req, res, next) => {
 
     res.json({ status: "ok", message: "User succesfully created" });
   } catch (error) {
-    error.status = 400;
-    return next(error);
+    return next(setError(error, "400"));
   }
 };
 
@@ -34,18 +32,14 @@ export const loginUser = async (req, res, next) => {
     const userFound = await UserModel.findOne({ username: req.body.username });
     if (!userFound) {
       console.error("User not found");
-      const error = new Error("unauthorised");
-      error.status = 401;
-      return next(error);
+      return next(getError("401", "unauthorised"));
     }
 
     const peppered = process.env.PASSWORD_PEPPER + req.body.password;
     const result = await bcrypt.compare(peppered, userFound.hash);
     if (!result) {
       console.error("Password error");
-      const error = new Error("unauthorised");
-      error.status = 401;
-      return next(error);
+      return next(getError("401", "unauthorised"));
     }
 
     const claims = {
@@ -57,8 +51,7 @@ export const loginUser = async (req, res, next) => {
 
     res.json({ accessToken, refreshToken });
   } catch (error) {
-    error.status = 400;
-    return next(error);
+    return next(setError(error, "400"));
   }
 };
 
@@ -73,7 +66,6 @@ export const refreshAccessToken = async (req, res, next) => {
 
     res.json({ accessToken });
   } catch (error) {
-    error.status = 400;
-    return next(error);
+    return next(setError(error, "400"));
   }
 };
