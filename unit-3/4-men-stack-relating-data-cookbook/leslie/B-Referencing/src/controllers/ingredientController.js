@@ -59,3 +59,13 @@ export const updateIngredientById = async (req, res, next) => {
     return next(setError(error, 400));
   }
 };
+
+export const deleteIngredientById = async (req, res, next) => {
+  try {
+    await IngredientModel.findByIdAndDelete(req.params.ingredientId);
+
+    res.json({ status: "ok", message: "Ingredient successfully deleted" });
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};

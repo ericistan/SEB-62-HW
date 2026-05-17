@@ -8,3 +8,7 @@ export const checkUpdateIngredientByIdInputs = [
   param("ingredientId").notEmpty().withMessage("Ingredient id is required"),
   body("name").notEmpty().withMessage("Name is required"),
 ];
+
+export const checkDeleteIngredientByIdInputs = [
+  param("ingredientId").notEmpty().withMessage("Ingredient id is required"),
+];
