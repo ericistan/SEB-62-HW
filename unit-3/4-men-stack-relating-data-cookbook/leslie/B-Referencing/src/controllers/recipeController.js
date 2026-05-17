@@ -94,3 +94,24 @@ export const updateRecipeById = async (req, res, next) => {
     return next(setError(error, 400));
   }
 };
+
+export const deleteRecipeById = async (req, res, next) => {
+  try {
+    const recipeFound = await RecipeModel.findById(req.params.recipeId);
+    if (!recipeFound) {
+      console.error("Recipe not found");
+      return next(getError(401, "Recipe not found"));
+    }
+
+    if (!recipeFound.owner.equals(req.decoded.userId)) {
+      console.error("You are not the owner of this recipe");
+      return next(getError(403, "You are not the owner of this recipe"));
+    }
+
+    await recipeFound.deleteOne();
+
+    res.json({ status: "ok", message: "Recipe successfully deleted" });
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};
