@@ -5,6 +5,7 @@ import express from "express";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/routers/authRouter.js";
 import recipeRouter from "./src/routers/recipeRouter.js";
+import ingredientRouter from "./src/routers/ingredientRouter.js";
 
 connectDB();
 
@@ -33,6 +34,7 @@ app.use((err, req, res, next) => {
 
 app.use("/api", authRouter);
 app.use("/api", recipeRouter);
+app.use("/api", ingredientRouter);
 
 app.listen(5001);
 

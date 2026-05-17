@@ -32,14 +32,14 @@ export const loginUser = async (req, res, next) => {
     const userFound = await UserModel.findOne({ username: req.body.username });
     if (!userFound) {
       console.error("User not found");
-      return next(getError("401", "unauthorised"));
+      return next(getError(401, "unauthorised"));
     }
 
     const peppered = process.env.PASSWORD_PEPPER + req.body.password;
     const result = await bcrypt.compare(peppered, userFound.hash);
     if (!result) {
       console.error("Password error");
-      return next(getError("401", "unauthorised"));
+      return next(getError(401, "unauthorised"));
     }
 
     const claims = {
@@ -51,7 +51,7 @@ export const loginUser = async (req, res, next) => {
 
     res.json({ accessToken, refreshToken });
   } catch (error) {
-    return next(setError(error, "400"));
+    return next(setError(error, 400));
   }
 };
 
@@ -66,6 +66,6 @@ export const refreshAccessToken = async (req, res, next) => {
 
     res.json({ accessToken });
   } catch (error) {
-    return next(setError(error, "400"));
+    return next(setError(error, 400));
   }
 };

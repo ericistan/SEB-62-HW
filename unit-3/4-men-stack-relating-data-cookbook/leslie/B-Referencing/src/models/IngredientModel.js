@@ -4,7 +4,7 @@ const IngredientSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
   },
-  { collation: "ingredientsRef" },
+  { collection: "ingredientsRef" },
 );
 
 export default mongoose.model("Ingredient", IngredientSchema);
