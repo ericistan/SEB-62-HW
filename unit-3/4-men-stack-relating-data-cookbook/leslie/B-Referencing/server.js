@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/routers/authRouter.js";
+import recipeRouter from "./src/routers/recipeRouter.js";
 
 connectDB();
 
@@ -31,6 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use("/api", authRouter);
+app.use("/api", recipeRouter);
 
 app.listen(5001);
 
