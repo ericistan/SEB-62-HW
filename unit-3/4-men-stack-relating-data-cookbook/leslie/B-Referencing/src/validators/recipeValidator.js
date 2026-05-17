@@ -5,4 +5,4 @@ export const checkCreateRecipeInputs = [
   body("owner").notEmpty().withMessage("Owner is required"),
 ];
 
-export const checkGetRecipeById = [param("recipeId").notEmpty().withMessage("recipeId is required")];
+export const checkGetRecipeById = [param("recipeId").notEmpty().withMessage("Recipe id is required")];

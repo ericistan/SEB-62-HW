@@ -28,3 +28,12 @@ export const createIngredient = async (req, res, next) => {
     return next(setError(error, 400));
   }
 };
+
+export const getIngredientById = async (req, res, next) => {
+  try {
+    const ingredientFound = await IngredientModel.findById(req.params.ingredientId);
+    res.json(ingredientFound);
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};
