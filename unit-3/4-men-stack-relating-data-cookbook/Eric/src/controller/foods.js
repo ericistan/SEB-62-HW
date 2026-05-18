@@ -1,4 +1,4 @@
-const User = require("../models/User.js");
+const User = require("../models/user.js");
 
 //finds user and returns pantry array
 exports.indexFoods = async (req, res) => {
@@ -45,7 +45,7 @@ exports.updateFood = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
     const foodItem = user.pantry.id(req.params.itemId);
-    Object.assign(foodItem, req.body); //
+    Object.assign(foodItem, req.body);
     await user.save();
     res.json(foodItem);
   } catch (err) {
