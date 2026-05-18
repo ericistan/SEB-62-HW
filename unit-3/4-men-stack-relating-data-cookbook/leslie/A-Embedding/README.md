@@ -1,0 +1,7 @@
+## .env variables
+
+- PORT
+- MONGODB_URI
+- PASSWORD_PEPPER
+- ACCESS_SECRET
+- REFRESH_SECRET
