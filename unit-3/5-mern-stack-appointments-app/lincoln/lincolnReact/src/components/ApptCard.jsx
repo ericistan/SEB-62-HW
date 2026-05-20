@@ -24,7 +24,10 @@ const ApptCard = (props) => {
 
   const deleteMutate = useMutation({
     mutationFn: deleteAppt,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["appts"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["appts"] });
+      props.setMessage("Entry deleted successfully");
+    },
   });
 
   return (
@@ -36,11 +39,6 @@ const ApptCard = (props) => {
           id={props.id}
           data={props.data}
           setShowShowModal={setShowShowModal}
-          style={{
-            paddingTop: "10px",
-            paddingBottom: "10px",
-            border: "solid 1px black",
-          }}
         />
       )}
       {showUpdateModal && (

@@ -6,6 +6,7 @@ import CreateModal from "./createModal.jsx";
 
 const Dashboard = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [message, setMessage] = useState("");
   const readAppts = async () => {
     const fetchData = sharedFetch();
     try {
@@ -45,6 +46,7 @@ const Dashboard = () => {
       <br />
       <p>status message for checking:</p>
       {apptQuery.isError && apptQuery.error?.message}
+      {message ? <p style={{ color: "green" }}>{message}</p> : ""}
       <br />
       <br />
       <div className="row" style={{ border: "solid 1px black" }}>
@@ -58,7 +60,14 @@ const Dashboard = () => {
       <br />
       {apptQuery.isSuccess &&
         apptQuery.data.map((item) => {
-          return <ApptCard key={item._id} id={item._id} data={item} />;
+          return (
+            <ApptCard
+              key={item._id}
+              id={item._id}
+              data={item}
+              setMessage={setMessage}
+            />
+          );
         })}
     </>
   );
