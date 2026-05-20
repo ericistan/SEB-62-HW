@@ -3,16 +3,30 @@ In this tutorial, we will create a simple Express server that connects to a Mong
 
 TABLE OF CONTENTS
 
-- PACKAGE INSTALLATION[#package-installation]
+- INSTALL PACKAGE INITIALIZATION[#package-installation]
 - CHANGE PACKAGE.JSON[#change-package-json]
 - ENVIRONMENT VARIABLES CREATION[#environment-variables-creation]
 - SRC FOLDER CREATE[#src-folder-create]
   - DB FOLDER, DB.JS[#db-folder-dbjs]
   - MODELS FOLDER, SCHEMA.JS[#models-folder-schemajs]
   - CONTROLLERS FOLDER, CONTROLLER.JS[#controllers-folder-controllerjs]
+  - ROUTER FOLDER, ROUTER.JS[#router-folder-routerjs]
+  - VALIDATORS FOLDER, VALIDATOR.JS[#validators-folder-validatorjs]
+  - MIDDLEWARES FOLDER, MIDDLEWARE.JS[#middlewares-folder-middlewarejs]
 - SERVER.JS[#serverjs]
+- CREATE JWT[#create-jwt]
+  - INSTALL PACKAGES[#install-packages]
+  - ENV VARIABLES[#env-variables]
+  - MODELS FOLDER, USERSCHEMA.JS[#models-folder-userschemajs]
+  - CONTROLLERS FOLDER, AUTHCONTROLLER.JS[#controllers-folder-authcontrollerjs]
+  - BRUNO[#bruno]
+  - MIDDLEWARES FOLDER, AUTHMIDDLEWARE.JS[#middlewares-folder-authmiddlewarejs]
+- SECURING API ENDPOINTS (HARDENING)[#securing-api-endpoints-hardening]
+  - RATE LIMITING[#rate-limiting]
+  - CORS[#cors]
+  - HELMET[#helmet]
 
-1. PACKAGE INSTALLATION
+1. INSTALL PACKAGE INITIALIZATION
    Install the following packages
 
 - npm init -y
@@ -38,6 +52,7 @@ TABLE OF CONTENTS
 
 3. ENVIRONMENT VARIABLES CREATION
    Create a .env file and add the following code:
+   note that you need to define PORT and your DATABASE path here:
 
 ```env
 PORT=5001
@@ -45,7 +60,7 @@ MONGODB_URI=mongodb://127.0.0.1:27017/homework
 ```
 
 4. SRC FOLDER CREATE
-   create a src folder with the following folders (models, routes, controllers, middlewares, db)
+   create a src folder with the following folders (models, routes, controllers, middlewares, db, validators etc) and files (db.js, schema.js, router.js, controller.js, middleware.js, validator.js etc) inside it.
 
 A. DB FOLDER, DB.JS
 Create db folder with db.js file created and add the following line:
@@ -53,7 +68,7 @@ Create db folder with db.js file created and add the following line:
 ```js
 import mongoose from "mongoose";
 
-export const connectDB = async () => {
+const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 5000,
@@ -63,10 +78,14 @@ export const connectDB = async () => {
     process.exit(1);
   }
 };
+
+export default connectDB;
 ```
 
 B. MODELS FOLDER, SCHEMA.JS
 Create models folder with schema.js file created and add the following line:
+
+Below is an example of how to create a schema with an embedded schema:
 
 ```js
 import mongoose from "mongoose";
@@ -75,13 +94,46 @@ const schemaEmbedded = new mongoose.Schema(
   {
     // Define your schema fields here
   },
-  { collections: "collectionNameEmbedded" },
+  { collection: "collectionNameEmbedded" },
 );
 
 const schema = new mongoose.Schema(
   {
     // Define your second schema fields here with the embedded schema
     someField: { schemaEmbedded },
+  },
+  { collection: "collectionName" },
+);
+
+export default mongoose.model("ModelName", schema);
+```
+
+Here is an example of schema referrencing:
+
+```js
+import mongoose from "mongoose";
+const schemaReferenced = new mongoose.Schema(
+  {
+    // Define your schema fields here
+  },
+  { collection: "collectionNameReferenced" },
+);
+
+export default mongoose.model("ModelNameReferenced", schemaReferenced);
+```
+
+this is another model that references the above schema:
+
+```js
+import mongoose from "mongoose";
+
+const schema = new mongoose.Schema(
+  {
+    // Define your second schema fields here with the referenced schema
+    someField: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ModelNameReferenced",
+    },
   },
   { collections: "collectionName" },
 );
@@ -110,6 +162,73 @@ router.get("/some-route", controllers.someControllerFunction);
 router.post("/some-route", controllers.someOtherControllerFunction);
 
 export default router;
+```
+
+Y. VALIDATORS FOLDER, VALIDATOR.JS
+Create validators folder with validator.js file created. Note you may google for more information on how to use express-validator and define your validation rules as you wish (with custom()). Below is an example of how to create a validator:
+
+```js
+import {whatever syntax you want to validate e.g. body, param} from "express-validator";
+
+export const someValidator = [
+  // Define your validation rules here
+  body("someStringField", "someStringField is required").exists()
+  param("someParamField", "someParamField must be a number").isInt({min:1, max:100}),
+  body("someField", "someField must be a number").optional(),
+];
+
+```
+
+Below is an example of how to create a custom validator that checks if the id in the body is a valid MongoDB ObjectId and exists in the database:
+
+```js
+export const validateIdInBody = [
+  body("id", "id is invalid")
+    .exists()
+    .isMongoId()
+    .custom(async (id) => {
+      const idArray = Array.isArray ? [id] : id;
+      const valid = await BooksModel.countDocuments({
+        _id: { $in: idArray },
+      });
+      if (valid !== idArray.length) {
+        throw new Error("id not found in database");
+      } else {
+        return true;
+      }
+    }),
+];
+```
+
+Next create a validator for validation results:
+
+```js
+import { validationResult } from "express-validator";
+
+const checkError = (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).json({ status: "error", msg: errors.array() });
+  } else {
+    next();
+  }
+};
+
+export default checkError;
+```
+
+After which, insert the validator and the checkError function into the route like this:
+Example below is insert validator at the router level:
+
+```js
+import express from "express";
+import { someValidator } from "../validators/validator.js";
+import checkError from "../validators/validator.js";
+
+const router = express.Router();
+
+router.post("/some-route", someValidator, checkError, someControllerFunction);
 ```
 
 Z. MIDDLEWARES FOLDER, MIDDLEWARE.JS
@@ -159,7 +278,6 @@ export const globalErrorHandler = (err, req, res, next) => {
 ```js
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import { connectDB } from "./src/db/db.js";
 import * as controllers from "./src/controllers/controller.js";
 import {
@@ -180,17 +298,17 @@ app.use(jsonErrorHandler);
 app.get("/", controllers.someControllerFunction);
 app.post("/some-route", controllers.someOtherControllerFunction);
 
-// Define your global error handler middleware here (after the routes)
-app.use(globalErrorHandler);
-
 // Start the server with the PORT defined in the .env file
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
+
+// Define your global error handler middleware here (after the routes)
+app.use(globalErrorHandler);
 ```
 
 6. CREATE JWT
-   A. INSTALL PACKAGES
+   A. INSTALL PACKAGES FOR JWT BCRYPT UUID
 
 - npm i jsonwebtoken
 - npm i bcrypt
@@ -198,6 +316,11 @@ app.listen(process.env.PORT, () => {
 
 B. ENV VARIABLES
 Add ACCESS_SECRET and REFRESH_SECRET to .env file
+
+```env
+ACCESS_SECRET=your_access_secret_key
+REFRESH_SECRET=your_refresh_secret_key
+```
 
 C. MODELS FOLDER, USERSCHEMA.JS
 Add the following code to schema.js file:
@@ -334,15 +457,85 @@ export const auth = (req, res, next) => {
 };
 ```
 
+Below is an example of how to create an auth middleware that checks for admin role:
+
+```js
+import jwt from "jsonwebtoken";
+export const authAdmin = (req, res, next) => {
+  if (!("authorization" in req.headers)) {
+    return res.status(400).json({ status: "error", msg: "no token found" });
+  }
+  const token = req.headers["authorization"].replace("Bearer ", "");
+  if (token) {
+    try {
+      const decoded = jwt.verify(token, process.env.ACCESS_SECRET);
+
+      if (decoded.role.toLowerCase() === "admin") {
+        req.decoded = decoded;
+        next();
+      } else {
+        console.error("unauthorised");
+        return res.status(403).json({ status: "error", msg: "unauthorised" });
+      }
+    } catch (error) {
+      console.error(error.message);
+      return res.status(401).json({ status: "error", msg: "unauthorised" });
+    }
+  } else {
+    console.error("missing token");
+    return res.status(403).json({ status: "error", msg: "missing token" });
+  }
+};
+```
+
 Then at server.js, add the following code to import the auth middleware and use it in a protected route:
 
 ```js
 import { auth } from "./middlewares/authMiddleware.js";
 
-// Use the auth middleware in a protected route
-app.use("/protected", auth, someRouterFunction);
-
-// OR you may put it before the endpoint like this:
+// you may put it before the endpoint like this:
 app.use(auth);
 app.use("/protected", someRouterFunction);
+```
+
+OR you can put it in the API endpoint like this:
+
+```js
+app.use("/protected", auth, someControllerFunction);
+```
+
+or at the router level like this:
+
+```js
+router.get("/protected-route", auth, someControllerFunction);
+// or for admin only access:
+router.put("/protected-route", authAdmin, someControllerFunction);
+```
+
+?????
+
+7. SECURING API ENDPOINTS (HARDENING)
+   A. RATE LIMITING
+   Install the package: npm i express-rate-limit
+   B. CORS
+   Install the package: npm i cors
+   C. HELMET
+   Install the package: npm i helmet
+
+At server.js, add the following code to import the packages and use them as follows:
+
+```js
+import rateLimit from "express-rate-limit";
+import cors from "cors";
+import helmet from "helmet";
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use(limiter);
+app.use(helmet());
+app.use(cors());
 ```
