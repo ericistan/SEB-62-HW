@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+import helmet from "helmet";
 dotenv.config();
 import connectDB from "./src/db/db.js";
 import {
@@ -10,6 +12,8 @@ import appts from "./src/routers/appts.js";
 connectDB();
 
 const app = express();
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

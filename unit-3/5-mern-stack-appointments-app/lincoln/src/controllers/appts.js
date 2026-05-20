@@ -94,7 +94,13 @@ export const createAppt = async (req, res) => {
     });
   } catch (error) {
     console.error(error.message);
-    res.status(404).json("cannot fetch data");
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        status: "error",
+        msg: Object.values(error.errors).map((item) => item.message),
+      });
+    }
+    res.status(404).json({ status: "error", msg: "cannot fetch data" });
   }
 };
 

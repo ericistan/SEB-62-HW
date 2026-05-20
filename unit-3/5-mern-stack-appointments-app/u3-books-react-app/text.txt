@@ -1,0 +1,72 @@
+// 1. Install dependencies
+
+npm i react-router jwt-decode
+
+create context folder with user.jsx with following line:
+``````jsx
+import React from "react";
+
+export default React.createContext();
+``````
+
+
+// 2. Install react-query
+npm i @tanstack/react-query
+
+note about tanstack:
+- In the pre-version before tanstack install, json returned a wrapper like { ok, data, msg }, 
+so components could safely do if (res.ok). 
+- In the TanStack version, it returns the parsed JSON directly and throws on errors, 
+because the raw JSON would be wrapped by the tanstack hook(useQuery or useMutation) 
+hence {ok,data,msg} is not necessary.
+- QueryClientProvider wrap the components provide context to use query and mutation hooks, 
+- QueryClient instance manages the cache and state of queries and mutations across the application.
+- useQuery and useMutation determine how data shape get cached and returned.
+- definition of cache key: a unique identifier for each query, used to store and retrieve data 
+from the cache. Lifecycle is controlled by staleTime and cacheTime to refresh data.
+Advantages of tanstack are as follows:
+- Default staleTime is 0 (data is immediately stale), cacheTime = 300000 ms (5 minutes). 
+By default queries refetch on window focus/reconnect and when mounted if stale.
+- QueryKey uniquely identifies a cached entry; changing the key creates/looks up a different cache entry. 
+Invalidation also targets keys to trigger refetches.
+- useEffect replacement because useQuery/useMutation handle fetching, status, errors, 
+refetching and deduplication, so you rarely need a fetch-in-useEffect pattern for server data. 
+Keep useEffect for non-fetch (non-server or API) side effects.
+- Lesser Lifting state because the cache holds shared data so you can avoid lifting props/state 
+for fetched data. Components read from the cache via useQuery, minimizing prop drilling 
+and repeated network requests thus prevent hitting rate limits easily.
+
+// 3. Install error boundary
+npm i react-error-boundary
+next create a component file called ErrorBoundary.jsx with the following code and place it together with your main.jsx file:
+``````jsx
+import React from "react";
+
+const ErrorComponent = (props) => {
+  console.error("Error Encountered", props.error);
+
+  return (
+    <div>
+      <h1>Error encountered</h1>
+      <br />
+      Error message: {props.error.message}
+    </div>
+  );
+};
+
+export default ErrorComponent;
+``````
+
+import the component and error boundary package to your main.jsx and wrap your App with the error boundary component like this:
+``````jsx
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorComponent from "./ErrorComponent";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <ErrorBoundary FallbackComponent={ErrorComponent}>
+      <App />
+    </ErrorBoundary>
+  </React.StrictMode>
+);
+``````
