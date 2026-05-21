@@ -1,11 +1,11 @@
 const sharedFetch = () => {
-  const fetchData = async (endpoint, method, body) => {
+  const fetchData = async (endpoint, method, body, token) => {
     try {
       const res = await fetch(import.meta.env.VITE_SERVER + endpoint, {
         method,
         headers: {
           "Content-Type": "application/json",
-          // Authorization: "Bearer " + token,
+          Authorization: "Bearer " + token,
         },
         body: JSON.stringify(body),
       });

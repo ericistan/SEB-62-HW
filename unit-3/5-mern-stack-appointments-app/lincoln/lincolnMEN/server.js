@@ -9,6 +9,8 @@ import {
   jsonErrorHandler,
 } from "./src/middlewares/errorHandlers.js";
 import appts from "./src/routers/appts.js";
+import roles from "./src/routers/roles.js";
+import auth from "./src/routers/auth.js";
 connectDB();
 
 const app = express();
@@ -24,7 +26,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api", appts);
+app.use("/auth", auth);
+app.use("/users/:userId", appts);
+app.use("/roles", roles);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

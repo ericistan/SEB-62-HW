@@ -1,20 +1,23 @@
-import { React, useState } from "react";
+import { React, use, useState } from "react";
 import sharedFetch from "../services/sharedFetch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ShowModal from "./ShowModal";
 import UpdateModal from "./updateModal";
+import UserContext from "../context/user";
 
 const ApptCard = (props) => {
   const fetchData = sharedFetch();
   const queryClient = useQueryClient();
   const [showShowModal, setShowShowModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const userCtx = use(UserContext);
   const deleteAppt = async () => {
     try {
       const res = await fetchData(
-        "/api/appts/" + props.id,
+        `/users/${userCtx.userId}/appts/` + props.id,
         "DELETE",
         undefined,
+        userCtx.accessToken,
       );
       return res;
     } catch (error) {

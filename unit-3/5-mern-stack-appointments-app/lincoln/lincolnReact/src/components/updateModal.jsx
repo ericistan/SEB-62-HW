@@ -1,8 +1,9 @@
-import { React, useRef } from "react";
+import { React, use, useRef } from "react";
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import sharedFetch from "../services/sharedFetch";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import UserContext from "../context/user";
 
 const Overlay = (props) => {
   const titleRef = useRef("");
@@ -15,6 +16,7 @@ const Overlay = (props) => {
   const timeRef = useRef("");
   const queryClient = useQueryClient();
   const fetchData = sharedFetch();
+  const userCtx = use(UserContext);
 
   const formatSGDate = (dateString) => {
     if (!dateString) return "";
@@ -41,16 +43,21 @@ const Overlay = (props) => {
           "Missing fields! title, type, date, time cannot be empty!!",
         );
       }
-      const res = await fetchData("/api/appts/" + props.id, "PATCH", {
-        title: titleRef.current.value.trim(),
-        type: typeRef.current.value.trim(),
-        purpose: purposeRef.current.value.trim() || undefined,
-        person: personRef.current.value.trim() || undefined,
-        address: addressRef.current.value.trim() || undefined,
-        comment: commentRef.current.value.trim() || undefined,
-        date: dateRef.current.value.trim(),
-        time: timeRef.current.value.trim(),
-      });
+      const res = await fetchData(
+        `/users/${userCtx.userId}/appts/` + props.id,
+        "PATCH",
+        {
+          title: titleRef.current.value.trim(),
+          type: typeRef.current.value.trim(),
+          purpose: purposeRef.current.value.trim() || undefined,
+          person: personRef.current.value.trim() || undefined,
+          address: addressRef.current.value.trim() || undefined,
+          comment: commentRef.current.value.trim() || undefined,
+          date: dateRef.current.value.trim(),
+          time: timeRef.current.value.trim(),
+        },
+        userCtx.accessToken,
+      );
       return res;
     } catch (error) {
       throw error;

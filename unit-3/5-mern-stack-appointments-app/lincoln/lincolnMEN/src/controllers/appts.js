@@ -1,4 +1,5 @@
 import Appts from "../models/Appts.js";
+import Auth from "../models/Auth.js";
 
 export const seedAppts = async (req, res) => {
   try {
@@ -61,7 +62,7 @@ export const seedAppts = async (req, res) => {
   }
 };
 
-export const createAppt = async (req, res) => {
+export const createApptOri = async (req, res) => {
   try {
     const repeated = await Appts.findOne({ title: req.body.title });
     if (repeated)
@@ -104,7 +105,35 @@ export const createAppt = async (req, res) => {
   }
 };
 
-export const readAllAppts = async (req, res) => {
+export const createAppt = async (req, res) => {
+  try {
+    console.log("params:", req.params, "body:", req.body);
+    const user = await Auth.findById(req.params.userId);
+    if (!user) return res.status(404).json({ msg: "user not found" });
+    const appt = {
+      title: req.body.title,
+      type: req.body.type,
+      purpose: req.body.purpose || "",
+      company: req.body.company || "",
+      person: req.body.person || "",
+      address: req.body.address || "",
+      comment: req.body.comment || "",
+      date: req.body.date,
+      time: req.body.time,
+    };
+    user.appts.push(appt);
+    await user.save();
+    res.json({
+      status: "ok",
+      msg: "appt created successfully",
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "fail to create Appt" });
+  }
+};
+
+export const readAllApptsOri = async (req, res) => {
   try {
     const allAppts = await Appts.find();
     res.json(allAppts);
@@ -114,7 +143,22 @@ export const readAllAppts = async (req, res) => {
   }
 };
 
-export const updateAppt = async (req, res) => {
+export const readAllAppts = async (req, res) => {
+  try {
+    const user = await Auth.findById(req.params.userId);
+    if (!user) return res.status(404).json({ msg: "user not found" });
+    res.json({
+      status: "fetch successfully",
+      user: user.username,
+      appointments: user.appts,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "fail to create Appt" });
+  }
+};
+
+export const updateApptOri = async (req, res) => {
   try {
     const updated = {};
     if ("title" in req.body) updated.title = req.body.title;
@@ -149,7 +193,34 @@ export const updateAppt = async (req, res) => {
   }
 };
 
-export const deleteAppt = async (req, res) => {
+export const updateAppt = async (req, res) => {
+  try {
+    const user = await Auth.findById(req.params.userId);
+    if (!user) return res.status(404).json({ msg: "user not found" });
+    const updated = user.appts.id(req.params.apptId);
+    if (!updated) return res.status(404).json({ msg: "entry not found" });
+    if ("title" in req.body) updated.title = req.body.title;
+    if ("type" in req.body) updated.type = req.body.type;
+    if ("purpose" in req.body) updated.purpose = req.body.purpose;
+    if ("company" in req.body) updated.company = req.body.company;
+    if ("person" in req.body) updated.person = req.body.person;
+    if ("address" in req.body) updated.address = req.body.address;
+    if ("comment" in req.body) updated.comment = req.body.comment;
+    if ("date" in req.body) updated.date = req.body.date;
+    if ("time" in req.body) updated.time = req.body.time;
+    await user.save();
+    res.json({
+      status: "ok",
+      message: "update successfully",
+      content: updated,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "fail to create Appt" });
+  }
+};
+
+export const deleteApptOri = async (req, res) => {
   try {
     const found = await Appts.findById(req.params.apptId);
     if (!found)
@@ -167,9 +238,24 @@ export const deleteAppt = async (req, res) => {
   }
 };
 
+export const deleteAppt = async (req, res) => {
+  try {
+    const user = await Auth.findById(req.params.userId);
+    if (!user) return res.status(404).json({ msg: "user not found" });
+    user.appts.pull(req.params.apptId);
+    await user.save();
+    res.json({ status: "ok", msg: "entry deleted", content: user.appts });
+  } catch (error) {
+    console.error(error.message);
+    res.status(404).json({ status: "error", msg: "fail to delete" });
+  }
+};
+
 export const postAppt = async (req, res) => {
   try {
-    const appt = await Appts.findById(req.params.apptId);
+    const user = await Auth.findById(req.params.userId);
+    if (!user) return res.status(404).json({ msg: "user not found" });
+    const appt = await Auth.appts.findById(req.params.apptId);
     if (!appt)
       return res
         .status(404)

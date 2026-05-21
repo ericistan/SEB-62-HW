@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import { React, use, useRef } from "react";
 import ReactDOM from "react-dom";
 import styles from "./Modal.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import sharedFetch from "../services/sharedFetch";
+import UserContext from "../context/user";
 
 const Overlay = (props) => {
   const titleRef = useRef();
@@ -15,6 +16,7 @@ const Overlay = (props) => {
   const timeRef = useRef();
   const queryClient = useQueryClient();
   const fetchData = sharedFetch();
+  const userCtx = use(UserContext);
 
   const createAppt = async () => {
     // .trim() are for optional field, if empty value, dont send the keys as well
@@ -29,16 +31,21 @@ const Overlay = (props) => {
         throw new Error("Missing fields! title, type, date, time are required");
       }
 
-      const res = await fetchData("/api/appts", "PUT", {
-        title: titleRef.current.value.trim(),
-        type: typeRef.current.value.trim(),
-        purpose: purposeRef.current.value.trim() || undefined,
-        person: personRef.current.value.trim() || undefined,
-        address: addressRef.current.value.trim() || undefined,
-        comment: commentRef.current.value.trim() || undefined,
-        date: dateRef.current.value.trim(),
-        time: timeRef.current.value.trim(),
-      });
+      const res = await fetchData(
+        `/users/${userCtx.userId}/appts`,
+        "PUT",
+        {
+          title: titleRef.current.value.trim(),
+          type: typeRef.current.value.trim(),
+          purpose: purposeRef.current.value.trim() || undefined,
+          person: personRef.current.value.trim() || undefined,
+          address: addressRef.current.value.trim() || undefined,
+          comment: commentRef.current.value.trim() || undefined,
+          date: dateRef.current.value.trim(),
+          time: timeRef.current.value.trim(),
+        },
+        userCtx.accessToken,
+      );
       return res;
     } catch (error) {
       throw error;

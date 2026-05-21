@@ -8,7 +8,7 @@ import {
   updateAppt,
 } from "../controllers/appts.js";
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get("/appts/seed", seedAppts);
 router.get("/appts", readAllAppts);
