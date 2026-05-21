@@ -62,49 +62,6 @@ export const seedAppts = async (req, res) => {
   }
 };
 
-export const createApptOri = async (req, res) => {
-  try {
-    const repeated = await Appts.findOne({ title: req.body.title });
-    if (repeated)
-      return res.status(404).json({ status: "error", msg: "repeated entry" });
-    const appt = await Appts.create({
-      title: req.body.title,
-      type: req.body.type,
-      purpose: req.body.purpose,
-      company: req.body.company,
-      person: req.body.person,
-      address: req.body.address,
-      comment: req.body.comment,
-      date: req.body.date,
-      time: req.body.time,
-    });
-    res.json({
-      status: "ok",
-      msg: "new appointment created successfully",
-      show: {
-        title: appt.title,
-        type: appt.type,
-        purpose: appt.purpose,
-        company: appt.company,
-        person: appt.person,
-        address: appt.address,
-        comment: appt.comment,
-        date: appt.date,
-        time: appt.time,
-      },
-    });
-  } catch (error) {
-    console.error(error.message);
-    if (error.name === "ValidationError") {
-      return res.status(400).json({
-        status: "error",
-        msg: Object.values(error.errors).map((item) => item.message),
-      });
-    }
-    res.status(404).json({ status: "error", msg: "cannot fetch data" });
-  }
-};
-
 export const createAppt = async (req, res) => {
   try {
     console.log("params:", req.params, "body:", req.body);
@@ -133,16 +90,6 @@ export const createAppt = async (req, res) => {
   }
 };
 
-export const readAllApptsOri = async (req, res) => {
-  try {
-    const allAppts = await Appts.find();
-    res.json(allAppts);
-  } catch (error) {
-    console.error(error.message);
-    res.status(404).json("cannot fetch data");
-  }
-};
-
 export const readAllAppts = async (req, res) => {
   try {
     const user = await Auth.findById(req.params.userId);
@@ -155,41 +102,6 @@ export const readAllAppts = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "fail to create Appt" });
-  }
-};
-
-export const updateApptOri = async (req, res) => {
-  try {
-    const updated = {};
-    if ("title" in req.body) updated.title = req.body.title;
-    if ("type" in req.body) updated.type = req.body.type;
-    if ("purpose" in req.body) updated.purpose = req.body.purpose;
-    if ("company" in req.body) updated.company = req.body.company;
-    if ("person" in req.body) updated.person = req.body.person;
-    if ("address" in req.body) updated.address = req.body.address;
-    if ("comment" in req.body) updated.comment = req.body.comment;
-    if ("date" in req.body) updated.date = req.body.date;
-    if ("time" in req.body) updated.time = req.body.time;
-
-    const appt = await Appts.findByIdAndUpdate(req.params.apptId, updated);
-    res.json({
-      status: "ok",
-      msg: "update successfully",
-      show: {
-        title: appt.title,
-        type: appt.type,
-        purpose: appt.purpose,
-        company: appt.company,
-        person: appt.person,
-        address: appt.address,
-        comment: appt.comment,
-        date: appt.date,
-        time: appt.time,
-      },
-    });
-  } catch (error) {
-    console.error(error.message);
-    res.status(404).json({ status: "error", msg: "fail to update" });
   }
 };
 
@@ -217,24 +129,6 @@ export const updateAppt = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "fail to create Appt" });
-  }
-};
-
-export const deleteApptOri = async (req, res) => {
-  try {
-    const found = await Appts.findById(req.params.apptId);
-    if (!found)
-      return res
-        .status(404)
-        .json({ status: "error", msg: "id does not exist" });
-    const deleted = await Appts.findByIdAndDelete(req.params.apptId);
-    res.json({
-      status: "ok",
-      msg: `entry title [${found.title}] deleted successfully `,
-    });
-  } catch (error) {
-    console.error(error.message);
-    res.status(404).json({ status: "error", msg: "fail to delete" });
   }
 };
 
