@@ -2,14 +2,26 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/routers/authRouter.js";
 import appointmentRouter from "./src/routers/appointmentRouter.js";
 
 connectDB();
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const app = express();
 
+app.use(cors());
+app.use(helmet());
+app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
