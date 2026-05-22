@@ -51,3 +51,18 @@ export const login = async (req, res, next) => {
     return next(setError(error, 400, "login failed"));
   }
 };
+
+export const refreshAccessToken = async (req, res, next) => {
+  try {
+    const decoded = jwt.verify(req.body.refreshToken, process.env.REFRESH_SECRET);
+
+    const claims = {
+      user_id: decoded.user_id,
+    };
+    const accessToken = jwt.sign(claims, process.env.ACCESS_SECRET, getAccessTokenConfig());
+
+    res.json({ accessToken });
+  } catch (error) {
+    return next(setError(error, 400, "refresh access failed"));
+  }
+};
