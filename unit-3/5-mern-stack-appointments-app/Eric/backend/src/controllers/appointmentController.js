@@ -15,6 +15,7 @@ export const seedAppointments = async (req, res) => {
         time: "10:00 AM",
         comments: "Bring project reports",
       },
+
       {
         title: "Doctor's Appointment",
         type: "Medical",
