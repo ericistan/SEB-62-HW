@@ -33,7 +33,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="container">
+    <div className={`container ${css["tab"]}`}>
       <h2 className={css["h2"]}>{`Hey ${userCtx.username}`}</h2>
       <div>
         <div>Your Appointments:</div>

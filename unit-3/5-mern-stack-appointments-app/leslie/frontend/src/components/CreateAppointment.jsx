@@ -50,7 +50,7 @@ const CreateAppointment = () => {
   };
 
   return (
-    <div>
+    <div className={`container ${css["tab"]}`}>
       <h2>Create a new appointment</h2>
       <div className={css["card"]}>
         <div>

@@ -54,7 +54,7 @@ const UpdateAppointment = () => {
   };
 
   return (
-    <div>
+    <div className={`container ${css["tab"]}`}>
       <h2>Update appointment</h2>
       <div className={css["card"]}>
         <div className={css["input-block"]}>
