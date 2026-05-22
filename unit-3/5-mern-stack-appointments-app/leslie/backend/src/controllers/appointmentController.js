@@ -93,3 +93,32 @@ export const updateAppointmentById = async (req, res, next) => {
     return next(setError(error, 400));
   }
 };
+
+export const deleteAppointmentById = async (req, res, next) => {
+  try {
+    const appointmentFound = await AppointmentModel.findById(req.body.appointment_id);
+    if (!appointmentFound || !appointmentFound.user_id.equals(req.decoded.user_id)) {
+      return next(
+        getError(
+          401,
+          "unauthorised request",
+          !appointmentFound ? "appointment not found" : "appointment found does not belong to current user",
+        ),
+      );
+    }
+
+    const userFound = await UserModel.findById(appointmentFound.user_id);
+    if (!userFound) {
+      return next(getError(401, "unauthorised request", "user not found"));
+    }
+
+    userFound.appointments.pull(appointmentFound._id);
+    await userFound.save();
+
+    await appointmentFound.deleteOne();
+
+    res.json("appointment deleted");
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};

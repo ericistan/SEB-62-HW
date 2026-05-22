@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createAppointment,
+  deleteAppointmentById,
   getAppointmentById,
   getAppointments,
   updateAppointmentById,
@@ -19,5 +20,6 @@ router.put("/", isSignedIn, checkCreateAppointment, checkErrors, createAppointme
 router.get("/", isSignedIn, getAppointments);
 router.post("/", isSignedIn, appointment_id_mongoId, checkErrors, getAppointmentById);
 router.patch("/", isSignedIn, checkUpdateAppointment, checkErrors, updateAppointmentById);
+router.delete("/", isSignedIn, appointment_id_mongoId, checkErrors, deleteAppointmentById);
 
 export default router;
