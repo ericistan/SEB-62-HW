@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const AppointmentSchema = new mongoose.Schema(
   {
+    user_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     type: { type: String, required: true },
     purpose: { type: String, default: "" },

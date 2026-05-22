@@ -1,5 +1,7 @@
 import { body } from "express-validator";
 
+const user_id_mongoId = body("user_id", "user_id must be a mongoId").isMongoId();
+
 const title_notEmpty = body("title", "title cannot be empty").trim().notEmpty();
 
 const title_isLength = body("title", "title must be between 1 and 50 characters").isLength({ min: 1, max: 50 });
@@ -23,6 +25,7 @@ const dateTime_isISO8601Date = body("dateTime", "date must be in ISO 8601 format
 const notes_isLength = body("notes", "notes must not exceed 500 characters").optional().isLength({ max: 500 });
 
 export const checkCreateAppointment = [
+  user_id_mongoId,
   title_notEmpty,
   title_isLength,
   type_notEmpty,
