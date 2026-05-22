@@ -18,14 +18,29 @@ const attendees_isLength = body("attendees", "attendees must not exceed 500 char
   .optional()
   .isLength({ max: 500 });
 
-const address_isLength = body("address", "address must not exceed 100 characters").optional().isLength({ max: 100 });
+const address_isLength = body("address", "address must not exceed 200 characters").optional().isLength({ max: 200 });
 
 const dateTime_isISO8601Date = body("dateTime", "date must be in ISO 8601 format").optional().isISO8601();
 
 const notes_isLength = body("notes", "notes must not exceed 500 characters").optional().isLength({ max: 500 });
 
+export const appointment_id_mongoId = body("appointment_id", "appointment_id must be a mongoId").isMongoId();
+
 export const checkCreateAppointment = [
   user_id_mongoId,
+  title_notEmpty,
+  title_isLength,
+  type_notEmpty,
+  type_isLength,
+  purpose_isLength,
+  venue_isLength,
+  attendees_isLength,
+  address_isLength,
+  dateTime_isISO8601Date,
+];
+
+export const checkUpdateAppointment = [
+  appointment_id_mongoId,
   title_notEmpty,
   title_isLength,
   type_notEmpty,

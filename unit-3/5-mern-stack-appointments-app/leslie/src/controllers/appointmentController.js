@@ -22,7 +22,7 @@ export const createAppointment = async (req, res, next) => {
     });
 
     userFound.appointments.push(newAppointment._id);
-    userFound.save();
+    await userFound.save();
 
     res.json("appointment created");
   } catch (error) {
@@ -41,6 +41,54 @@ export const getAppointments = async (req, res, next) => {
     }
 
     res.json(userFound.appointments);
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};
+
+export const getAppointmentById = async (req, res, next) => {
+  try {
+    const appointmentFound = await AppointmentModel.findById(req.body.appointment_id).select({ created_at: 0, __v: 0 });
+    if (!appointmentFound || !appointmentFound.user_id.equals(req.decoded.user_id)) {
+      return next(
+        getError(
+          401,
+          "unauthorised request",
+          !appointmentFound ? "appointment not found" : "appointment found does not belong to current user",
+        ),
+      );
+    }
+
+    res.json(appointmentFound);
+  } catch (error) {
+    return next(setError(error, 400));
+  }
+};
+
+export const updateAppointmentById = async (req, res, next) => {
+  try {
+    const appointmentFound = await AppointmentModel.findById(req.body.appointment_id);
+    if (!appointmentFound || !appointmentFound.user_id.equals(req.decoded.user_id)) {
+      return next(
+        getError(
+          401,
+          "unauthorised request",
+          !appointmentFound ? "appointment not found" : "appointment found does not belong to current user",
+        ),
+      );
+    }
+
+    if (req.body.title) appointmentFound.title = req.body.title;
+    if (req.body.type) appointmentFound.type = req.body.type;
+    if (req.body.purpose) appointmentFound.purpose = req.body.purpose;
+    if (req.body.venue) appointmentFound.venue = req.body.venue;
+    if (req.body.attendees) appointmentFound.attendees = req.body.attendees;
+    if (req.body.address) appointmentFound.address = req.body.address;
+    if (req.body.dateTime) appointmentFound.dateTime = req.body.dateTime;
+    if (req.body.notes) appointmentFound.notes = req.body.notes;
+    await appointmentFound.save();
+
+    res.json("appointment updated");
   } catch (error) {
     return next(setError(error, 400));
   }
