@@ -41,13 +41,12 @@ export const login = async (req, res, next) => {
 
     const claims = {
       user_id: userFound._id,
-      username: userFound.username,
     };
 
     const accessToken = jwt.sign(claims, process.env.ACCESS_SECRET, getAccessTokenConfig());
     const refreshToken = jwt.sign(claims, process.env.REFRESH_SECRET, { expiresIn: "30d", jwtid: uuidv4() });
 
-    res.json({ accessToken, refreshToken });
+    res.json({ accessToken, refreshToken, username: userFound.username });
   } catch (error) {
     return next(setError(error, 400, "login failed"));
   }
@@ -59,7 +58,6 @@ export const refreshAccessToken = async (req, res, next) => {
 
     const claims = {
       user_id: decoded.user_id,
-      username: userFound.username,
     };
     const accessToken = jwt.sign(claims, process.env.ACCESS_SECRET, getAccessTokenConfig());
 
