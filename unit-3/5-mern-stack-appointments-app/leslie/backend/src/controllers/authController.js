@@ -41,6 +41,7 @@ export const login = async (req, res, next) => {
 
     const claims = {
       user_id: userFound._id,
+      username: userFound.username,
     };
 
     const accessToken = jwt.sign(claims, process.env.ACCESS_SECRET, getAccessTokenConfig());
@@ -58,6 +59,7 @@ export const refreshAccessToken = async (req, res, next) => {
 
     const claims = {
       user_id: decoded.user_id,
+      username: userFound.username,
     };
     const accessToken = jwt.sign(claims, process.env.ACCESS_SECRET, getAccessTokenConfig());
 
