@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../context/userContext.jsx";
 import sharedFetch from "../shared/sharedFetch.jsx";
+import AppointmentCard from "./AppointmentCard.jsx";
+import { useNavigate } from "react-router";
+import css from "../styles/App.module.css";
 
 const Dashboard = () => {
   const userCtx = useContext(UserContext);
@@ -8,6 +11,7 @@ const Dashboard = () => {
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(null);
   const fetchData = sharedFetch();
+  const navigate = useNavigate();
 
   const getAppointments = async () => {
     setIsError(false);
@@ -17,8 +21,10 @@ const Dashboard = () => {
 
     if (res.ok) {
       setAppointments(res.data);
+    } else if (res.message.includes("jwt expired")) {
+      navigate("/login");
     } else {
-      console.error(res.message);
+      console.error("res", res.message);
     }
   };
 
@@ -28,23 +34,23 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <h2>{`Hey ${userCtx.username}`}</h2>
+      <h2 className={css["h2"]}>{`Hey ${userCtx.username}`}</h2>
       <div>
+        <div>Your Appointments:</div>
         {(!appointments || appointments.length === 0) && <div>You have no appointments currently</div>}
-        {/* {appointments && appointments.length > 0 && <div>You have {appointments.length} appointments</div>} */}
         {appointments &&
           appointments.length > 0 &&
           appointments.map((item) => (
-            <>
-              <div>
-                <div>{item.title}</div>
-                <div>{item.type}</div>
-                <div>{item.dateTime}</div>
-              </div>
-            </>
+            <AppointmentCard
+              key={item._id}
+              title={item.title}
+              type={item.type}
+              dateTime={item.dateTime}
+              onClick={() => navigate("/appointment", { state: { id: item._id } })}
+            />
           ))}
         <div>
-          <button>+ create appointment</button>
+          <button onClick={() => navigate("/appointment/create")}>+ create appointment</button>
         </div>
       </div>
     </div>

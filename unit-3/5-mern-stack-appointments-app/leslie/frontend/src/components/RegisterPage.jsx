@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import sharedFetch from "../shared/sharedFetch.jsx";
 import { Link } from "react-router";
+import css from "../styles/App.module.css";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -32,33 +33,27 @@ const RegisterPage = () => {
 
   return (
     <>
-      <div>
-        {isError && error}
-        {!isError && "\u00A0"}
-      </div>
       {!registerComplete && (
         <>
-          <div>
-            <div>Username</div>
-            <input
-              type="text"
-              placeholder="Enter username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+          <div className={css["input-block"]}>
+            <div className={css["input-label"]}>Username:</div>
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
           </div>
-          <div>
-            <div>Password</div>
+          <div className={css["input-block"]}>
+            <div className={css["input-label"]}>Password:</div>
             <input
               type={passwordViewState ? "text" : "password"}
-              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <button onClick={togglePasswordView}>{passwordViewState ? "hide" : "show"}</button>
           </div>
-          <button onClick={handleRegister}>create</button>
           <div>
+            {isError && error}
+            {!isError && "\u00A0"}
+          </div>
+          <button onClick={handleRegister}>create</button>
+          <div className={css["input-block"]}>
             <Link to="/login">Already have an account? Sign in here</Link>
           </div>
         </>

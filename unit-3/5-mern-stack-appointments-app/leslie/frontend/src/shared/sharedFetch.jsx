@@ -14,8 +14,8 @@ const sharedFetch = () => {
       if (!res.ok) {
         if (data?.message) {
           if (Array.isArray(data.message)) {
-            console.error("Array(data.message)", data.message[0].message);
-            return { ok: false, message: data.message[0].message };
+            console.error("Array(data.message)", data.message[0].msg);
+            return { ok: false, message: data.message[0].msg };
           } else {
             console.error("data.message", data.message);
             return { ok: false, message: data.message };

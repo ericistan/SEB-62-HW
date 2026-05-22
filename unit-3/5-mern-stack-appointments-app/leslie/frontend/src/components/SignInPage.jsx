@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import sharedFetch from "../shared/sharedFetch.jsx";
 import UserContext from "../context/userContext.jsx";
 import { Link, useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
+import css from "../styles/App.module.css";
 
 const SignInPage = () => {
   const [username, setUsername] = useState("");
@@ -21,7 +23,10 @@ const SignInPage = () => {
 
     if (res.ok) {
       userCtx.setAccessToken(res.data?.accessToken);
+      userCtx.setRefreshToken(res.data?.refreshToken);
       userCtx.setUsername(res.data?.username);
+      const decoded = jwtDecode(res.data?.accessToken);
+      if (decoded) userCtx.setUserId(decoded.user_id);
       navigate("/dashboard");
     } else {
       setError(res.message);
@@ -35,31 +40,25 @@ const SignInPage = () => {
 
   return (
     <>
-      <div>
-        {isError && error}
-        {!isError && "\u00A0"}
+      <div className={css["input-block"]}>
+        <div className={css["input-label"]}>Username:</div>
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       </div>
-      <div>
-        <div>Username</div>
-        <input
-          type="text"
-          placeholder="Enter username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <div>Password</div>
+      <div className={css["input-block"]}>
+        <div className={css["input-label"]}>Password:</div>
         <input
           type={passwordViewState ? "text" : "password"}
-          placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button onClick={togglePasswordView}>{passwordViewState ? "hide" : "show"}</button>
       </div>
-      <button onClick={handleLogin}>sign in</button>
       <div>
+        {isError && error}
+        {!isError && "\u00A0"}
+      </div>
+      <button onClick={handleLogin}>sign in</button>
+      <div className={css["input-block"]}>
         <Link to="/register">Create an account here</Link>
       </div>
     </>
