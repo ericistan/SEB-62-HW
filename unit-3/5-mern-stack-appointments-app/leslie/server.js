@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/routers/authRouter.js";
+import appointmentRouter from "./src/routers/appointmentRouter.js";
 
 connectDB();
 
@@ -32,6 +33,7 @@ app.use((err, req, res, next) => {
 
 const apiBase = "/api";
 app.use(apiBase + "/auth", authRouter);
+app.use(apiBase + "/appointments", appointmentRouter);
 
 app.listen(5001);
 
