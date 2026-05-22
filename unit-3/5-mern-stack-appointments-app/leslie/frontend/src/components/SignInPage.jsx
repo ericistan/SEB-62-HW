@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import sharedFetch from "../shared/sharedFetch.jsx";
 import UserContext from "../context/userContext.jsx";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const SignInPage = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +11,7 @@ const SignInPage = () => {
   const [error, setError] = useState(null);
   const fetchData = sharedFetch();
   const userCtx = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     setIsError(false);
@@ -20,7 +21,8 @@ const SignInPage = () => {
 
     if (res.ok) {
       userCtx.setAccessToken(res.data?.accessToken);
-      console.log("login successful");
+      userCtx.setUsername(res.data?.username);
+      navigate("/dashboard");
     } else {
       setError(res.message);
       setIsError(true);
