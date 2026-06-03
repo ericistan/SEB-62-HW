@@ -71,3 +71,23 @@ def convert_temperature(temperature, unit):
 
 print('Exercise 4: Convert 0°C to Fahrenheit:', convert_temperature(0, 'C'))
 print('Exercise 4: Convert 32°F to Celsius:', convert_temperature(32, 'F'))
+
+
+# Exercise 5: Sum to N
+#
+# Write a function named `sum_to` that takes a single integer n and returns the sum of all integers from 1 to n.
+#
+# Examples:
+# sum_to(6) should return 21.
+# sum_to(10) should return 55.
+#
+# Define the function and then call it below.
+
+def sum_to(n):
+    result = 0
+    for x in range(n + 1):
+        result += x
+    return result
+
+print('Exercise 5:', sum_to(6))
+print('Exercise 5:', sum_to(10))
