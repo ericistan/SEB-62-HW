@@ -268,12 +268,12 @@ def choose_exercise():
                 print(exercise["str_value"])
 
             print("  ")
-            choice = int(input("Enter an exercise number or -1 to stop: ")) - 1
+            choice = int(input("Enter an exercise number or -1 to stop: "))
             if choice == -1:
                 return
 
             print("  ")
-            exercises[choice]["fn"]()
+            exercises[choice - 1]["fn"]()
             print("  ")
             input("--- press enter to continue ---")
             print("  ")
