@@ -13,3 +13,22 @@ def calculate_area_triangle(base, height):
     return base * height / 2
 
 print('Exercise 1:', calculate_area_triangle(10, 5))
+print('Exercise 1:', calculate_area_triangle(7, 3))
+
+
+# Exercise 2: Calculate Simple Interest
+#
+# Write a function named `simple_interest` that takes principal, rate of interest (as a percentage), and time (years).
+# Calculate and return the simple interest using the formula (principal * rate * time) / 100.
+#
+# Examples:
+# simple_interest(1000, 5, 2) should return 100.
+# simple_interest(1500, 3.5, 5) should return 262.5.
+#
+# Define your function and call it to see the result.
+
+def simple_interest(principal, interest, time):
+    return (principal * interest * time) / 100
+
+print('Exercise 2:', simple_interest(1000, 5, 2))
+print('Exercise 2:', simple_interest(1500, 3.5, 5))
