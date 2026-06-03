@@ -24,7 +24,7 @@ def check_letter():
             input_char = input("Enter a letter (a-z or A-Z): ")
             if len(input_char) != 1:
                 raise ValueError()
-            elif not input_char in a_to_z:
+            elif not input_char.lower() in a_to_z:
                 raise ValueError()
 
             print("The letter x is a vowel." if input_char.lower() in vowels else "The letter x is a consonant.")
@@ -33,7 +33,7 @@ def check_letter():
             print("Invalid input: Expecting a letter (a-z or A-Z), try again")
 
 # Call the function
-check_letter()
+# check_letter()
 
 
 # Exercise 2: Old enough to vote?
@@ -64,7 +64,7 @@ def check_voting_eligibility():
             print("Invalid input try again")
 
 # Call the function
-check_voting_eligibility()
+# check_voting_eligibility()
 
 
 # Exercise 3: Calculate Dog Years
@@ -99,7 +99,7 @@ def calculate_dog_years():
             print("Invalid input try again")
 
 # Call the function
-calculate_dog_years()
+# calculate_dog_years()
 
 
 # Exercise 4: Weather Advice
@@ -142,7 +142,7 @@ def weather_advice():
 
 
 # Call the function
-weather_advice()
+# weather_advice()
 
 
 # Exercise 5: What's the Season?
@@ -200,4 +200,85 @@ def determine_season():
             print(error)
 
 # Call the function
-determine_season()
+# determine_season()
+
+
+# Exercise 6: Number Guessing Game
+#
+# Write a Python function named `guess_number` that allows a user to guess a predetermined number within a range.
+#
+# Requirements:
+# - Set a fixed number as the target for guessing (e.g., 42).
+# - Prompt the user to guess a number within a range (e.g., 1 to 100).
+# - Allow the user to guess up to five times.
+# - After each guess, use conditional statements with AND, OR, and NOT to give the user hints like:
+#   - "Guess is too low" or "Guess is too high."
+#   - "Last chance!" when they are on their fifth guess.
+# - Print "Congratulations, you guessed correctly!" if they guess the number.
+# - Print "Sorry, you failed to guess the number in five attempts." if they do not succeed.
+#
+# Hints:
+# - Use a for loop with a range to limit guesses to five.
+# - Use logical AND, OR, and NOT to check conditions and provide appropriate feedback.
+
+def guess_number():
+    # Your control flow logic goes here
+    import random
+    hidden_number = random.randint(1, 100)
+    tries = 0
+
+    while True:
+        try:
+            player_input = int(input("Guess the hidden number in five attempts! Enter a number between 1 and 100: "))
+            if player_input == hidden_number:
+                print("Congratulations, you guessed correctly!")
+                return
+            elif player_input < 0 or player_input > 100:
+                print("Your input is out of range.")
+            else:
+                tries += 1
+                if tries < 5 and player_input < hidden_number:
+                    print("Guess is too low.")
+                elif tries < 5 and player_input > hidden_number:
+                    print("Guess is too high.")
+                else:
+                    print(f"Sorry, you failed to guess the number in five attempts. Hidden number is {hidden_number}.")
+                    return
+
+                if tries == 4:
+                    print("Last chance!")
+        except ValueError as error:
+            print(error)
+
+# Call the function
+# guess_number()
+
+
+# Extra function to run exercise based on user input
+def choose_exercise():
+    exercises = [{"str_value":"Exercise 1: Vowel or Consonant", "fn":check_letter},
+                 {"str_value":"Exercise 2: Old enough to vote?", "fn":check_voting_eligibility},
+                 {"str_value":"Exercise 3: Calculate Dog Years", "fn":calculate_dog_years},
+                 {"str_value":"Exercise 4: Weather Advice", "fn":weather_advice},
+                 {"str_value":"Exercise 5: What's the Season?", "fn":determine_season},
+                 {"str_value":"Exercise 6: Number Guessing Game", "fn":guess_number}]
+    while True:
+        try:
+            for exercise in exercises:
+                print(exercise["str_value"])
+
+            print("  ")
+            choice = int(input("Enter an exercise number or -1 to stop: ")) - 1
+            if choice == -1:
+                return
+
+            print("  ")
+            exercises[choice]["fn"]()
+            print("  ")
+            input("--- press enter to continue ---")
+            print("  ")
+        except ValueError as error:
+            print("Invalid input try again.")
+
+
+choose_exercise()
