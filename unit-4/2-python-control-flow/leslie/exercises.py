@@ -132,9 +132,9 @@ def weather_advice():
                 raise ValueError()
 
             if is_cold == "yes":
-                print("Wear a waterproof coat." if is_raining else "Wear a warm coat.")
+                print("Wear a waterproof coat." if is_raining == "yes" else "Wear a warm coat.")
             else:
-                print("Carry an umbrella." if is_raining else "Wear light clothing.")
+                print("Carry an umbrella." if is_raining == "yes" else "Wear light clothing.")
 
             return
         except ValueError as error:
