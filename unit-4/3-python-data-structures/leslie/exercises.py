@@ -13,7 +13,8 @@ def manage_students():
     return students, first_student, last_student
 
 # Call the function and print the result
-print('Exercise 1:', manage_students())
+students, first_student, last_student = manage_students()
+print('Exercise 1:', students, first_student, last_student)
 
 
 # Exercise 2: Loop and String Concatenation
@@ -87,3 +88,20 @@ def list_home_town_items(home_town):
 
 # Call the function and print the result
 print('Exercise 5:', list_home_town_items(home_town))
+
+
+# Exercise 6: Celebrate Students
+#
+# Using the list of students and a list comprehension, assign to a variable named awesome_students a new list containing strings.
+# For example: ["Tina is awesome!", "Fred is awesome!", "Wilma is awesome!"]
+
+def create_awesome_students(students):
+    # your code here
+    awesome_students = []
+    for student in students:
+        awesome_students.append(f"{student} is awesome!")
+
+    return awesome_students
+
+# Call the function and print the result
+print('Exercise 6:', create_awesome_students(students))
