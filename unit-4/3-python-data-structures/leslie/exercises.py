@@ -36,7 +36,8 @@ def combine_foods():
     return meal, foods
 
 # Call the function and print the result
-print('Exercise 2:', combine_foods())
+meal, foods = combine_foods()
+print('Exercise 2:', meal, foods)
 
 
 # Exercise 3: Slicing Tuples
@@ -105,3 +106,21 @@ def create_awesome_students(students):
 
 # Call the function and print the result
 print('Exercise 6:', create_awesome_students(students))
+
+
+# Exercise 7: Filter Foods
+#
+# Assign to a variable named foods_with_an_a the result of list comprehension that filters the foods tuple to only include food strings that contain the letter 'a'.
+# For example, if foods is a tuple of ('Taco', 'Burrito', 'Sandwich'), foods_with_an_a would be a list equal to ['Taco', 'Sandwich']
+
+def filter_foods_with_a(foods):
+    # your code here
+    filter_foods_with_a = []
+    for food in foods:
+        if "a" in food:
+            filter_foods_with_a.append(food)
+            
+    return filter_foods_with_a
+
+# Call the function and print the result
+print('Exercise 7:', filter_foods_with_a(foods))
