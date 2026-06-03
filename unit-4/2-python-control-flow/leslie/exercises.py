@@ -143,3 +143,61 @@ def weather_advice():
 
 # Call the function
 weather_advice()
+
+
+# Exercise 5: What's the Season?
+#
+# Write a Python function named `determine_season` that figures out the season based on the entered date.
+#
+# Requirements:
+# - The function should first prompt the user to enter the month (as three characters): "Enter the month of the year (Jan - Dec):"
+# - Then, the function should prompt the user to enter the day of the month: "Enter the day of the month:"
+# - Determine the current season based on the date:
+#      - Dec 21 - Mar 19: Winter
+#      - Mar 20 - Jun 20: Spring
+#      - Jun 21 - Sep 21: Summer
+#      - Sep 22 - Dec 20: Fall
+# - Print the season for the entered date in the format: "<Mmm> <dd> is in <season>."
+#
+# Hints:
+# - Use 'in' to check if a string is in a list or tuple.
+# - Adjust the season based on the day of the month when needed.
+# - Ensure to validate input formats and handle unexpected inputs gracefully.
+
+def determine_season():
+    # Your control flow logic goes here
+    months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    months_with_31_days = [0, 2, 4, 6, 7, 9, 11]
+    while True:
+        try:
+            month = input("Enter the month of the year (Jan - Dec): ")
+            month_check = month.lower()
+            if not month_check in months:
+                raise ValueError("not found in months")
+
+            day_of_month = int(input("Enter the day of the month: "))
+            if day_of_month < 0 or day_of_month > 31:
+                raise ValueError()
+            elif ((not months.index(month_check) in months_with_31_days) and (day_of_month > 30)) or month == months[1] and day_of_month > 29:
+                raise ValueError()
+            else:
+                date_point = (months.index(month_check), day_of_month)
+                season = ""
+
+                if (2, 20) <= date_point < (5, 21):
+                    season = "Spring"
+                elif (5, 21) <= date_point < (8, 22):
+                    season = "Summer"
+                elif (8, 22) <= date_point < (11, 21):
+                    season = "Fall"
+                else:
+                    season = "Winter"
+
+            print(f"{month} {day_of_month} is in {season}")
+            return
+        except ValueError as error:
+            print("Invalid input try again")
+            print(error)
+
+# Call the function
+determine_season()
