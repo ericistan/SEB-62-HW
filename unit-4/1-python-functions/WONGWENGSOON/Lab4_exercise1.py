@@ -62,6 +62,9 @@ print('Exercise 3:', apply_discount(100, 25))
 #
 # Define the function and then call it below.
 
+# Desmond's comments:
+# You should use if...elif for this
+
 def convert_temperature(temperature , unit):
     if unit == 'C':
         return (temperature * 9 / 5) + 32
