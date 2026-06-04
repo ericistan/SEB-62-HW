@@ -1,9 +1,7 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Display from "./components/Display";
-
-// Desmond's comments
-// Good
+import "./App.css";
 
 const queryClient = new QueryClient();
 

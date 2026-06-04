@@ -1,0 +1,33 @@
+.tab {
+  border-radius: 0.5rem;
+  border: 1px solid #000000;
+  padding: 1rem;
+}
+
+.input-block {
+  margin: 0.25rem 0;
+}
+
+.input-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.input-block input {
+  field-sizing: content;
+  min-width: 20ch;
+}
+
+.input-block textarea {
+  field-sizing: content;
+  min-width: 50ch;
+  min-height: 3lh;
+}
+
+.card {
+  border-radius: 0.5rem;
+  background-color: bisque;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
